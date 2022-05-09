@@ -1,18 +1,16 @@
-import {ReactComponent as Close} from './close.svg'
+
+
+import {ReactComponent as Exclamation} from './exclamation.svg'
+import {ReactComponent as Completed} from './complete.svg'
 
 
 function SVG({title, classes}) {
-
     const svg = {
-        close: <Close />,
+        exclamation: <Exclamation className={classes} />,
+        complete: <Completed className={classes} />,
     }
-
     return(<>
-
-    <div className={classes}>
         {svg[title]}
-    </div>
-
     </>)
 }
 export default SVG

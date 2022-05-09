@@ -20,20 +20,28 @@ function App() {
 
   const interval = (dayOfYear(new Date()) - startDay) * 4
 
-  console.log(interval);
-
 
 
   const [wordList, setWordList] = useState((require('./words.json').arr).split(','))
   const [word1def,setword1def] = useState({})
   const [word2def,setword2def] = useState({})
   const [word3def,setword3def] = useState({})
+  const [word4def,setword4def] = useState({})
   const [currentWords, setCurrentWords] = useState([
     wordList[interval],
     wordList[interval + 1],
     wordList[interval + 2],
     wordList[interval + 3],
   ])
+
+  const [givenLetter,setGivenLetter] = useState([
+    Math.floor(Math.random()*currentWords[0].length - 1) + 1,
+    Math.floor(Math.random()*currentWords[1].length - 1) + 1,
+    Math.floor(Math.random()*currentWords[2].length - 1) + 1,
+    Math.floor(Math.random()*currentWords[3].length - 1) + 1,
+  ])
+
+  console.log(givenLetter);
 
 
   const handleNewWords = () => {
@@ -95,7 +103,7 @@ function App() {
     fetchWordData(setword1def, currentWords[0])
     fetchWordData(setword2def, currentWords[1])
     fetchWordData(setword3def, currentWords[2])
-    fetchWordData(setword1def, currentWords[3])
+    fetchWordData(setword4def, currentWords[3])
   }, [currentWords])
 
   return (
@@ -103,26 +111,26 @@ function App() {
       <header className='py-4'>
 
         <div className=' text-center font-medium text-4xl uppercase'>
-          <span className={`text-emerald-500`}>Key</span><span className='text-neutral-700 font-thin'>Letter</span>
+        <span className={`text-emerald-500`}>Key</span><span className='text-neutral-700 font-thin'>Letter</span>
         </div>
       </header>
 
       <main className='grid grid-cols-1 gap-y-1 animate-appear'>
 
         <div className=' w-full'>
-          <WordForm word={currentWords[0]} type={word1def.type} def={word1def.def} />
+          <WordForm word={currentWords[0]} type={word1def.type} def={word1def.def} givenLetter={givenLetter[0]} />
         </div>
 
         <div className='w-full'>
-          <WordForm word={currentWords[1]} type={word2def.type} def={word2def.def}  />
+          <WordForm word={currentWords[1]} type={word2def.type} def={word2def.def} givenLetter={givenLetter[1]}  />
         </div>
 
         <div className=' w-full'>
-          <WordForm word={currentWords[2]} type={word3def.type} def={word3def.def}  />
+          <WordForm word={currentWords[2]} type={word3def.type} def={word3def.def} givenLetter={givenLetter[2]}  />
         </div>
 
         <div className=' w-full'>
-          <WordForm word={currentWords[3]} type={word3def.type} def={word3def.def}  />
+          <WordForm word={currentWords[3]} type={word3def.type} def={word3def.def} givenLetter={givenLetter[3]}  />
         </div>
 
         {/* <div className='pt-2 uppercase'>Challenge of the week</div> */}
