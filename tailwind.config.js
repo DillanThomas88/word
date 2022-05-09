@@ -10,7 +10,7 @@ module.exports = {
         '50': 'repeat(50, minmax(0, 1fr))',
       },
       animation: {
-        appear: 'appear .25s forwards',
+        appear: 'appear 1s forwards',
         disapear: 'appear .25s reverse forwards',
       },
       keyframes: {
