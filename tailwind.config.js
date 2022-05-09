@@ -34,8 +34,8 @@ module.exports = {
           '100%': {transform: 'translateX(0rem)', opacity: 1}
         },
         colorfade: {
-          from: {backgroundColor: '#737373'},
-          to: {backgroundColor: '#f43f5e'}
+          from: {backgroundColor: '#404040'},
+          to: {backgroundColor: '#22c55e'}
         },
 
 

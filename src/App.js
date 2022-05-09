@@ -23,6 +23,7 @@ function App() {
 
   const [isDark, setIsdark] = useState(false)
   const [revealed, setRevealed] = useState(false)
+  const [isDaily, setIsdaily] = useState(true)
   const [wordList, setWordList] = useState((require('./words.json').arr).split(','))
   const [word1def, setword1def] = useState({})
   const [word2def, setword2def] = useState({})
@@ -101,6 +102,10 @@ function App() {
     setRevealed(!revealed)
   }
 
+  const handleTabs = () => {
+    setIsdaily(!isDaily)
+  }
+
 
   useEffect(() => {
     fetchWordData(setword1def, currentWords[0])
@@ -109,48 +114,89 @@ function App() {
     fetchWordData(setword4def, currentWords[3])
   }, [currentWords])
 
+  useEffect(() => {
+    document.title = 'Key Letter'
+  }, [])
+
   return (
     <div style={{ height: window.innerHeight, width: window.innerWidth }} className="font-default overflow-hidden grid content-start">
-      <header className='py-4'>
+      <header className='pt-4'>
 
         <div className=' text-center  text-4xl uppercase'>
-          <span className={`text-rose-500 font-semibold`}>Key</span><span className='text-neutral-600 font-normal'>Letter</span>
+          <span className={`text-green-500 font-semibold`}>Key</span><span className='text-slate-600 font-normal'>Letter</span>
         </div>
-        <div className='w-full text-center uppercase flex justify-center items-center'>
-          <div className='uppercase mr-2 text-neutral-700 font-normal text-md text-neutral-500'>Daily</div>
-          <div className='font-semibold text-lg text-neutral-700'>#{interval + 1}</div>
+        <div className='flex mt-4 justify-start items-center ml-4'>
+          <div onClick={() => handleTabs()}
+            className={isDaily ? `mr-2 text-center uppercase flex justify-center bg-slate-200 items-center border-x border-t border-slate-300 px-4 pt-2 rounded-t-sm text-slate-700 font-bold` : `mr-2  opacity-50 text-center uppercase flex justify-center items-center border-x border-t border-slate-300 border-[1px] px-4 pt-2 rounded-t-sm`}>
+            <div className='uppercase font-medium'>Daily #</div>
+            <div className='font-semibold text-lg '>{interval + 1}</div>
 
+          </div>
+          <div onClick={() => handleTabs()}
+            className={isDaily ? `opacity-50 text-center uppercase flex justify-center items-center border-x border-t border-slate-400 px-4 pt-2 rounded-t-sm` : `text-center uppercase flex justify-center bg-slate-100 items-center border-x border-t border-slate-200 px-4 pt-2 rounded-t-sm text-slate-700 font-bold`}>
+            <div className='uppercase font-medium'>Weekly #</div>
+            <div className='font-semibold text-lg '>{interval + 1}</div>
+
+          </div>
         </div>
       </header>
 
-      <main className='grid grid-cols-1 gap-y-1 animate-appear'>
+      <main className='grid grid-cols-1 animate-appear'>
 
-        <div className=' w-full'>
-          <WordForm id={1} word={currentWords[0]} type={word1def.type} def={word1def.def} givenLetter={givenLetter[0]} />
-        </div>
+        {isDaily
+          ? <>
 
-        <div className='w-full'>
-          <WordForm id={2} word={currentWords[1]} type={word2def.type} def={word2def.def} givenLetter={givenLetter[1]} />
-        </div>
+            <div className=' w-full'>
+              <WordForm id={1} word={currentWords[0]} type={word1def.type} def={word1def.def} givenLetter={givenLetter[0]} />
+            </div>
 
-        <div className=' w-full'>
-          <WordForm id={3} word={currentWords[2]} type={word3def.type} def={word3def.def} givenLetter={givenLetter[2]} />
-        </div>
+            <div className='w-full'>
+              <WordForm id={2} word={currentWords[1]} type={word2def.type} def={word2def.def} givenLetter={givenLetter[1]} />
+            </div>
 
-        <div className=' w-full'>
-          <WordForm id={4} word={currentWords[3]} type={word4def.type} def={word4def.def} givenLetter={givenLetter[3]} />
-        </div>
+            <div className=' w-full'>
+              <WordForm id={3} word={currentWords[2]} type={word3def.type} def={word3def.def} givenLetter={givenLetter[2]} />
+            </div>
+
+            <div className=' w-full'>
+              <WordForm id={4} word={currentWords[3]} type={word4def.type} def={word4def.def} givenLetter={givenLetter[3]} />
+            </div>
+          </>
+
+          : <>
+            <div className='bg-slate-100'>
+              <div className='relative grid grid-cols-7 content-center justify-center text-center mx-7 my-4 '>
+                <div className='text-green-500'>●</div>
+                <div className='text-green-500'>●</div>
+                <div className='text-slate-300'>●</div>
+                <div className='text-slate-300'>●</div>
+                <div className='text-slate-300'>●</div>
+                <div className='text-slate-300'>●</div>
+                <div className='text-slate-300'>●</div>
+                <div className='absolute flex justify-center items-center h-full ml-6 text-orange-400'>
+                  <div className='border border-green-500 w-6 flex justify-center items-center'></div>
+                  <div className='border border-green-500 w-12 flex justify-center items-center'></div>
+                  <div className='border border-slate-300 w-12 flex justify-center items-center'></div>
+                  <div className='border border-slate-300 w-12 flex justify-center items-center'></div>
+                  <div className='border border-slate-300 w-12 flex justify-center items-center'></div>
+                  <div className='border border-slate-300 w-12 flex justify-center items-center'></div>
+                  <div className='border border-slate-300 w-6 flex justify-center items-center'></div>
+                </div>
+              </div>
+            </div>
+
+          </>}
 
         <div onClick={() => handleReveal()}
           className='w-full text-center text-lg uppercase font-thin mt-20'>
-          
+
           {revealed
             ? <div className=''>
-            <div>{currentWords[0]}</div>
-            <div>{currentWords[1]}</div>
-            <div>{currentWords[2]}</div>
-            <div>{currentWords[3]}</div>
-          </div>
+              <div>{currentWords[0]}</div>
+              <div>{currentWords[1]}</div>
+              <div>{currentWords[2]}</div>
+              <div>{currentWords[3]}</div>
+            </div>
             : <>reveal answers</>}
 
         </div>
