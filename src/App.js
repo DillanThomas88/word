@@ -130,7 +130,7 @@ function App() {
         </div>
 
         <div className=' w-full'>
-          <WordForm word={currentWords[3]} type={word3def.type} def={word3def.def} givenLetter={givenLetter[3]}  />
+          <WordForm word={currentWords[3]} type={word4def.type} def={word4def.def} givenLetter={givenLetter[3]}  />
         </div>
 
         {/* <div className='pt-2 uppercase'>Challenge of the week</div> */}
