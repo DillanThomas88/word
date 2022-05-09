@@ -2,7 +2,7 @@
   "name": "react-tailwindcss-setup",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "https://dillanthomas88.github.io/word/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
