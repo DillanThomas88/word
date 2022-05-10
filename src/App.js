@@ -164,13 +164,13 @@ function App() {
         <div className='grid grid-cols-1'>
           <div className='flex mt-4 justify-start items-center ml-4'>
             <div onClick={() => handleTabs()}
-              className={isDaily ? `mr-2 text-center uppercase flex justify-center bg-slate-300 items-center border-x border-t border-slate-300 px-4 pt-2 rounded-t-sm text-slate-700 font-bold` : `mr-2  opacity-75 text-center uppercase flex justify-center items-center border-x border-t border-slate-300  px-4 pt-2 rounded-t-sm`}>
+              className={isDaily ? `mr-2 text-center uppercase flex justify-center bg-slate-200 items-center border-x border-t border-slate-300 px-4 pt-2 rounded-t-sm text-slate-700 font-bold` : `mr-2  opacity-75 text-center uppercase flex justify-center items-center border-x border-t border-slate-300  px-4 pt-2 rounded-t-sm`}>
               <div className='uppercase font-medium'>Daily #</div>
               <div className='font-semibold text-lg '>{interval / 4 + 1}</div>
 
             </div>
             <div onClick={() => handleTabs()}
-              className={isDaily ? `opacity-75 text-center uppercase flex justify-center items-center border-x border-t border-slate-400 px-4 pt-2 rounded-t-sm` : `text-center uppercase flex justify-center bg-slate-300 items-center border-x border-t border-slate-200 px-4 pt-2 rounded-t-sm text-slate-700 font-bold`}>
+              className={isDaily ? `opacity-75 text-center uppercase flex justify-center items-center border-x border-t border-slate-400 px-4 pt-2 rounded-t-sm` : `text-center uppercase flex justify-center bg-slate-200 items-center border-x border-t border-slate-200 px-4 pt-2 rounded-t-sm text-slate-700 font-bold`}>
               <div className='uppercase font-medium'>Weekly #</div>
               <div className='font-semibold text-lg '>{Math.floor((interval / 4) / 7) + 1}</div>
 
@@ -179,7 +179,7 @@ function App() {
 
           {isDaily
             ? <div onClick={(e) => handleCardSelection(e)}
-              className='bg-slate-300 h-screen'>
+              className='bg-slate-200 h-screen'>
 
               <div>
               <div id={1}
@@ -262,7 +262,7 @@ function App() {
             </div>
             :
             <div onClick={(e) => handleCardSelection(e)}
-              className=' bg-slate-300 h-screen'>
+              className=' bg-slate-200 h-screen'>
 
               <div className='hidden'>
                 <div id={1}
