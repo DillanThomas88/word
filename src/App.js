@@ -39,21 +39,35 @@ function App() {
     wordList[interval + 3],
   ])
 
+  const [completion, setcompletion] = useState(true)
+
+  const getGivenLetters = (x, index1, index2) => {
+
+    let eq = [11, 19, 29, 31]
+    let eq2 = [37, 53, 57, 73]
+
+    const getNumber = (y) => {
+      y -= x
+
+      if (y > x) {
+        return getNumber(y)
+      }
+
+      return y
+    }
+
+    return getNumber(eq[index1] + eq2[index2])
+  }
+
+
   const [givenLetter, setGivenLetter] = useState([
-    Math.floor(Math.random() * (currentWords[0].length - 2)) + 1,
-    Math.floor(Math.random() * (currentWords[1].length - 2)) + 1,
-    Math.floor(Math.random() * (currentWords[2].length - 2)) + 1,
-    Math.floor(Math.random() * (currentWords[3].length - 2)) + 1,
+    getGivenLetters(currentWords[0].length - 2, 0, 3),
+    getGivenLetters(currentWords[0].length - 2, 1, 2),
+    getGivenLetters(currentWords[0].length - 2, 2, 1),
+    getGivenLetters(currentWords[0].length - 2, 3, 0),
   ])
 
-
-  const handleNewWords = () => {
-    setCurrentWords([
-      wordList[Math.floor(Math.random() * wordList.length - 1)],
-      wordList[Math.floor(Math.random() * wordList.length - 1)],
-      wordList[Math.floor(Math.random() * wordList.length - 1)]
-    ])
-  }
+  console.log(givenLetter);
 
 
   const fetchWordData = (state, x) => {
@@ -72,32 +86,7 @@ function App() {
           def: loc.shortdef[0],
 
         })
-        // console.log({
-        //   data: res.data,
-        //   type: res.data[0].fl,
-        //   def: res.data[0].shortdef[0],
-
-        // });
       })
-      // .then(res => {
-      //   const arr = res.data[0].meanings[0].definitions
-      //   console.log(arr);
-      //   let def = ''
-      //   arr.forEach(element => {
-      //     if(def === ''){
-      //       def = element.definition
-      //     } else {
-      //       if((element.definition).length > def.length) def = element.definition
-      //     }
-      //   });
-
-      //   console.log(def);
-      //   state({
-      //     type: res.data[0].meanings[0].partOfSpeech,
-      //     def: res.data[0].meanings[0].definitions[0].definition,
-
-      //   })
-      // })
       .catch(err => console.log(err))
   }
 
@@ -137,6 +126,11 @@ function App() {
 
   }
 
+  const handleSubmit = () => {
+    setcompletion(!completion)
+    setSelectedNum(0)
+  }
+
 
   useEffect(() => {
     fetchWordData(setword1def, currentWords[0])
@@ -150,8 +144,8 @@ function App() {
   }, [])
 
   return (
-    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-default overflow-hidden grid content-start">
-      <header className='pt-4'>
+    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-default overflow-hidden overflow-y-hidden grid content-start">
+      <header className='absolute top-0 w-full pt-4'>
 
         <div className=' text-center  text-4xl uppercase'>
           <span className={`text-green-500 font-semibold`}>Key</span><span className='text-slate-600 font-normal'>Letter</span>
@@ -159,7 +153,7 @@ function App() {
 
       </header>
 
-      <main className=''>
+      <main className='pt-14'>
 
         <div className='grid grid-cols-1'>
           <div className='flex mt-4 justify-start items-center ml-4'>
@@ -182,57 +176,58 @@ function App() {
               className='bg-slate-200 h-screen'>
 
               <div>
-              <div id={1}
-                className='card w-full'>
-                <WordForm
-                  id={1}
-                  word={currentWords[0]}
-                  type={word1def.type}
-                  def={word1def.def}
-                  givenLetter={givenLetter[0]}
-                  letter={letter}
-                  setLetter={setLetter}
-                  selectedNum={selectedNum} />
-              </div>
+                <div id={1}
+                  className='card w-full'>
+                  <WordForm
+                    id={1}
+                    word={currentWords[0]}
+                    type={word1def.type}
+                    def={word1def.def}
+                    givenLetter={givenLetter[0]}
+                    letter={letter}
+                    setLetter={setLetter}
+                    selectedNum={selectedNum} />
+                </div>
 
-              <div id={2}
-                className='card w-full'>
-                <WordForm
-                  id={2}
-                  word={currentWords[1]}
-                  type={word2def.type}
-                  def={word2def.def}
-                  givenLetter={givenLetter[1]}
-                  letter={letter}
-                  setLetter={setLetter}
-                  selectedNum={selectedNum} />
-              </div>
+                <div id={2}
+                  className='card w-full'>
+                  <WordForm
+                    id={2}
+                    word={currentWords[1]}
+                    type={word2def.type}
+                    def={word2def.def}
+                    givenLetter={givenLetter[1]}
+                    letter={letter}
+                    setLetter={setLetter}
+                    selectedNum={selectedNum} />
+                </div>
 
-              <div id={3}
-                className='card w-full'>
-                <WordForm
-                  id={3}
-                  word={currentWords[2]}
-                  type={word3def.type}
-                  def={word3def.def}
-                  givenLetter={givenLetter[2]}
-                  letter={letter}
-                  setLetter={setLetter}
-                  selectedNum={selectedNum} />
-              </div>
+                <div id={3}
+                  className='card w-full'>
+                  <WordForm
+                    id={3}
+                    word={currentWords[2]}
+                    type={word3def.type}
+                    def={word3def.def}
+                    givenLetter={givenLetter[2]}
+                    letter={letter}
+                    setLetter={setLetter}
+                    selectedNum={selectedNum} />
+                </div>
 
-              <div id={4}
-                className='card w-full'>
-                <WordForm
-                  id={4}
-                  word={currentWords[3]}
-                  type={word4def.type}
-                  def={word4def.def}
-                  givenLetter={givenLetter[3]}
-                  letter={letter}
-                  setLetter={setLetter}
-                  selectedNum={selectedNum} />
-              </div>
+                <div id={4}
+                  className='card w-full'>
+                  <WordForm
+                    id={4}
+                    word={currentWords[3]}
+                    type={word4def.type}
+                    def={word4def.def}
+                    givenLetter={givenLetter[3]}
+                    letter={letter}
+                    setLetter={setLetter}
+                    selectedNum={selectedNum} />
+                </div>
+
               </div>
 
               <div className='hidden bg-slate-100 h-screen '>
@@ -345,7 +340,21 @@ function App() {
 
         </div>
 
-        <div className='absolute bottom-0 mb-2 mx-1 w-full flex justify-center items-center'>
+        <div className='absolute bottom-0 mb-2 px-1 w-full flex flex-col justify-center items-center'>
+          {completion ? <>
+            <div className='w-full flex justify-center items-center'>
+              <button onClick={() => handleSubmit()}
+                className='uppercase w-11/12 py-[4px] rounded-md bg-green-500 text-white shadow-md shadow-slate-300 flex justify-center' >
+                <div className='font-medium animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
+              </button>
+            </div>
+          </> : <>
+            <div className='w-full flex justify-center items-center'>
+              <div className='uppercase w-11/12 py-[4px] rounded-md bg-neutral-400 text-white shadow-md shadow-slate-300 flex justify-center' >
+                <div className='font-medium mr-2 pointer-events-none'>Submit</div>
+              </div>
+            </div>
+          </>}
           <KeyBoard handleLetters={handleLetters} />
         </div>
 

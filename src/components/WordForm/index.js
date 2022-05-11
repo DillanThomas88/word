@@ -5,7 +5,7 @@ import SVG from '../../svgs'
 
 function WordForm(props) {
 
-    console.log(props.letter);
+    // console.log(props.letter);
 
     const [selected, setSelected] = useState()
     const [word, setWord] = useState([])
@@ -18,28 +18,28 @@ function WordForm(props) {
         for (let i = 0; i < (props.word).length; i++) {
             if (i === props.givenLetter) {
                 if (selected) {
-                    arr.push(<div key={i} className="h-8 w-8 mx-1 uppercase border border-slate-500 border-[1px] shadow-sm shadow-slate-300 rounded-sm  text-white flex justify-center items-center animate-colorfade">
+                    arr.push(<div key={i} className="h-8 w-8 mr-1 uppercase border border-slate-500 border-[1px] shadow-sm shadow-slate-300 rounded-sm  text-white flex justify-center items-center animate-colorfade">
                         {(props.word).split('')[i]}
                     </div>)
                 } else {
 
-                    arr.push(<div key={i} className="h-8 w-8 mx-1 uppercase border border-slate-500 border-[1px]  shadow-sm shadow-slate-300 rounded-sm  text-white flex justify-center items-center animate-reversecolorfade">
+                    arr.push(<div key={i} className="h-8 w-8 mr-1 uppercase border border-slate-500 border-[1px]  shadow-sm shadow-slate-300 rounded-sm  text-white flex justify-center items-center animate-reversecolorfade">
                         {(props.word).split('')[i]}
                     </div>)
                 }
             } else {
                 if (selected) {
                     if(word[i]){
-                        arr.push(<div key={i} className="h-8 w-8 mx-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-green-500 flex justify-center items-center">{word[i]}</div>)
+                        arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-green-500 flex justify-center items-center">{word[i]}</div>)
                     } else {
-                        arr.push(<div key={i} className="h-8 w-8 mx-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300"></div>)
+                        arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300"></div>)
                     }
 
                 } else {
                     if(word[i]){
-                        arr.push(<div key={i} className="h-8 w-8 mx-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-neutral-700 flex justify-center items-center">{word[i]}</div>)
+                        arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-neutral-700 flex justify-center items-center">{word[i]}</div>)
                     } else {
-                        arr.push(<div key={i} className="h-8 w-8 mx-1 border border-slate-500 border-[1px] bg-white to-white shadow-sm rounded-sm shadow-slate-300"></div>)
+                        arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white to-white shadow-sm rounded-sm shadow-slate-300"></div>)
                     }
 
                 }
@@ -122,13 +122,13 @@ function WordForm(props) {
 
     return (<div className='relative pointer-events-none'>
         {completed ?
-            <div className='absolute top-1 right-1 z-20 flex text-sm justify-center items-center text-slate-700'>
+            <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-700'>
                 <div className='mr-1 animate-slidefade'></div>
                 <SVG title={'complete'} classes={'text-green-500 h-6 w-6 animate-spin'} />
             </div>
             :
-            <div className='absolute top-1 right-1 z-20 flex text-sm justify-center items-center text-slate-600'>
-                <div className='mr-1 animate-slidefade'>Incomplete</div>
+            <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-600'>
+                <div className='mr-1 animate-slidefade'></div>
                 <SVG title={'exclamation'} classes={'text-orange-500 h-6 w-6 animate-spin'} />
             </div>
         }

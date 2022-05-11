@@ -17,7 +17,8 @@ module.exports = {
         reversespin: 'spin .5s reverse forwards',
         slidefade: 'slidefade .5s forwards ',
         colorfade:'colorfade .25s linear forwards',
-        reversecolorfade: 'colorfade .25s reverse linear forwards'
+        reversecolorfade: 'colorfade .25s reverse linear forwards',
+        throb: 'throb 1.2s linear infinite'
       },
       keyframes: {
         appear: {
@@ -37,6 +38,12 @@ module.exports = {
           from: {backgroundColor: '#404040'},
           to: {backgroundColor: '#22c55e'}
         },
+        throb: {
+          '0%': {transform: 'scaleX(1)'},
+          '5%': {transform: 'scaleX(1.05)'},
+          '10%': {transform: 'scaleX(1)'},
+          '100%': {transform: 'scaleX(1)'},
+        }
 
 
       },
