@@ -7,7 +7,9 @@ import {ReactComponent as Completed} from './complete.svg'
 function SVG({title, classes}) {
     const svg = {
         exclamation: <Exclamation className={classes} />,
+        exclamationx: <Exclamation className={classes} />,
         complete: <Completed className={classes} />,
+        
     }
     return(<>
         {svg[title]}

@@ -1,15 +1,19 @@
 
 import { useState, useEffect } from 'react'
 import SVG from '../../svgs'
+import { updatePlayerData } from '../../Settings/index'
 
 
 function WordForm(props) {
 
-    // console.log(props.letter);
+    // console.log();
+    const arrInt = props.id - 1
 
     const [selected, setSelected] = useState()
-    const [word, setWord] = useState([])
+    const [word, setWord] = useState(props.playerData.daily[arrInt])
     const [completed, setCompleted] = useState(false)
+
+    // console.log(props.playerData.daily[props.id],word);
     const getWordBoxes = () => {
 
         let randomNum = (Math.floor(Math.random() * (props.word).length))
@@ -29,14 +33,14 @@ function WordForm(props) {
                 }
             } else {
                 if (selected) {
-                    if(word[i]){
-                        arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-green-500 flex justify-center items-center">{word[i]}</div>)
+                    if (word[i]) {
+                        arr.push(<div key={i} className="h-8 w-8 mr-1  animate-pop border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-sky-500 flex justify-center items-center">{word[i]}</div>)
                     } else {
                         arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300"></div>)
                     }
 
                 } else {
-                    if(word[i]){
+                    if (word[i]) {
                         arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white shadow-sm rounded-sm shadow-slate-300 text-neutral-700 flex justify-center items-center">{word[i]}</div>)
                     } else {
                         arr.push(<div key={i} className="h-8 w-8 mr-1 border border-slate-500 border-[1px] bg-white to-white shadow-sm rounded-sm shadow-slate-300"></div>)
@@ -63,28 +67,30 @@ function WordForm(props) {
 
 
             if (props.letter === '<<') {
-                // console.log(word);
-                // console.log('object');
-                if(word.length === props.givenLetter + 1) {
+
+                if (word.length === props.givenLetter + 1) {
                     setWord(word.splice(0, word.length - 2))
-                } else {
-                    setWord(word.splice(0, word.length - 1))
-                }
+
+                } else { setWord(word.splice(0, word.length - 1)) }
 
             } else {
                 if (word.length === props.word.split('').length) return
 
                 setWord(word => [...word, props.letter])
+
+                //  ! App.js useEffect update daily letter array by ADDING a letter
+                updatePlayerData(props.setPlayerData, [...word, props.letter], arrInt, props.playerData )
             }
 
             props.setLetter('')
 
         }
+
     }, [selected, completed, props.letter])
 
 
     useEffect(() => {
-        if (props.selectedNum != props.id) {
+        if (parseInt(props.selectedNum) !== props.id) {
             setSelected(false)
         } else {
             setSelected(true)
@@ -96,20 +102,32 @@ function WordForm(props) {
 
     useEffect(() => {
 
-        if(selected) 
+        if (selected)
 
-        if(word.length === props.givenLetter) setWord(word => [...word, props.word.split('')[props.givenLetter].toUpperCase()])
+        //  ! App.js useEffect update daily letter array by REMOVING a letter
+        updatePlayerData(props.setPlayerData, [...word], arrInt, props.playerData )
+
+            if (word.length === props.givenLetter) {
+                setWord(word => [...word, props.word.split('')[props.givenLetter].toUpperCase()])
+                
+                updatePlayerData(
+                    props.setPlayerData, 
+                    [...word, props.word.split('')[props.givenLetter].toUpperCase()], 
+                    arrInt, props.playerData )
+            }
 
         if (completed) {
-            if(word.length === (props.word.split('')).length) return  
-            
+            if (word.length === (props.word.split('')).length) return
+
             setCompleted(!completed)
 
         } else {
-            if(word.length !== (props.word.split('')).length) return 
+            if (word.length !== (props.word.split('')).length) return
 
             setCompleted(!completed)
         }
+        
+
 
         if (completed) return
 
@@ -124,7 +142,7 @@ function WordForm(props) {
         {completed ?
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-700'>
                 <div className='mr-1 animate-slidefade'></div>
-                <SVG title={'complete'} classes={'text-green-500 h-6 w-6 animate-spin'} />
+                <SVG title={'exclamation'} classes={'text-orange-500 h-6 w-6 animate-reversespin'} />
             </div>
             :
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-600'>
@@ -134,7 +152,7 @@ function WordForm(props) {
         }
         {selected ?
             <div onClick={() => handleSelected()}
-                className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300  py-3 bg-slate-100 px-6 shadow-md shadow-slate-300 z-10">
+                className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300  py-3 bg-white px-6 shadow-md shadow-slate-300 z-10">
                 {/* <div className="w-full text-center uppercase animate-appear">{props.word}</div> */}
 
                 <div className="italic font-normal text-sm w-full flex justify-start animate-appear">{props.type}</div>
@@ -148,7 +166,7 @@ function WordForm(props) {
             </div>
             :
             <div onClick={() => handleSelected()}
-                className="w-full relative text-2xl font-bold flex flex-col  py-3 bg-slate-200 px-2 opacity-90">
+                className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300 py-3 bg-slate-100 px-2 opacity-90">
                 {/* <div className="w-full text-center uppercase">{props.word}</div> */}
 
                 {/* <div className="italic font-normal text-sm w-full flex justify-start">{props.type}</div>
