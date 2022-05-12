@@ -68,3 +68,41 @@ export function checkCompletion(letterArr, wordArr, func) {
     return x
     
 }
+
+// ! scoring
+
+export function showResults(answer, guess){
+
+    let ranInterval = Math.floor(Math.random()*1000)
+    // console.log(answer, guess);
+
+
+    const showLetter = () => {
+
+        let randomNum = Math.floor(Math.random()*answer.length)
+
+        if(!answer.length) return
+        
+        
+        
+        let t = setInterval(() => {
+
+            if(answer[randomNum] == guess[randomNum]){
+                // console.log('correct');
+            } else {
+                // console.log('incorrect')
+            };
+            // console.log(answer[randomNum] , guess[randomNum]);
+            answer.splice(randomNum,1)
+            guess.splice(randomNum,1)
+            showLetter()
+            ranInterval = Math.floor(Math.random()*1000)
+            
+            clearInterval(t)
+        }, 300 + ranInterval);
+
+    }
+
+    showLetter()
+
+}

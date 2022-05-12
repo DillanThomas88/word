@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import SVG from '../../svgs'
-import { updatePlayerData } from '../../Settings/index'
+import { showResults, updatePlayerData } from '../../Settings/index'
 
 
 function WordForm(props) {
@@ -12,13 +12,39 @@ function WordForm(props) {
     const [selected, setSelected] = useState()
     const [word, setWord] = useState(props.playerData.daily[arrInt])
     const [completed, setCompleted] = useState(false)
+    const [answer, setAnswer] = useState(props.word.split('').map(d => d.toUpperCase()))
+
 
     // console.log(props.playerData.daily[props.id],word);
     const getWordBoxes = () => {
+        let arr = []
+        
+        if(props.results) {
+            word.forEach((words, index) => {
+                    if(words === answer[index]){
+                        arr.push(<div key={index} className="h-8 w-8 mr-1 
+                        uppercase border border-slate-500 border-[1px] 
+                        shadow-sm shadow-slate-300 rounded-sm  text-white 
+                        flex justify-center items-center bg-gradient-to-tr from-sky-600 to-sky-500">
+                        {answer[index]}
+                    </div>)
+                    } else {
+                        arr.push(<div key={index} className="h-8 w-8 mr-1 
+                            uppercase border border-slate-500 border-[1px] 
+                            shadow-sm shadow-slate-300 rounded-sm  text-slate-500 
+                            flex justify-center items-center bg-slate-100 opacity-50">
+                            {answer[index]}
+                        </div>)
+                    }
+                    
+                
+            });
+
+            return arr
+        }
 
         let randomNum = (Math.floor(Math.random() * (props.word).length))
 
-        let arr = []
         for (let i = 0; i < (props.word).length; i++) {
             if (i === props.givenLetter) {
                 if (selected) {
@@ -79,7 +105,7 @@ function WordForm(props) {
                 setWord(word => [...word, props.letter])
 
                 //  ! App.js useEffect update daily letter array by ADDING a letter
-                updatePlayerData(props.setPlayerData, [...word, props.letter], arrInt, props.playerData )
+                // updatePlayerData(props.setPlayerData, [...word, props.letter], arrInt, props.playerData )
             }
 
             props.setLetter('')
@@ -105,15 +131,12 @@ function WordForm(props) {
         if (selected)
 
         //  ! App.js useEffect update daily letter array by REMOVING a letter
+        console.log(props.word.split(''));
         updatePlayerData(props.setPlayerData, [...word], arrInt, props.playerData )
 
             if (word.length === props.givenLetter) {
                 setWord(word => [...word, props.word.split('')[props.givenLetter].toUpperCase()])
                 
-                updatePlayerData(
-                    props.setPlayerData, 
-                    [...word, props.word.split('')[props.givenLetter].toUpperCase()], 
-                    arrInt, props.playerData )
             }
 
         if (completed) {
@@ -136,6 +159,16 @@ function WordForm(props) {
     }, [word])
 
 
+    useEffect(() => {
+        if(props.results){
+            showResults(answer, [...word])
+
+
+        }
+
+    },[props.results])
+
+
 
 
     return (<div className='relative pointer-events-none'>
@@ -153,7 +186,7 @@ function WordForm(props) {
         {selected ?
             <div onClick={() => handleSelected()}
                 className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300  py-3 bg-white px-6 shadow-md shadow-slate-300 z-10">
-                {/* <div className="w-full text-center uppercase animate-appear">{props.word}</div> */}
+                <div className="w-full text-center uppercase animate-appear">{props.word}</div>
 
                 <div className="italic font-normal text-sm w-full flex justify-start animate-appear">{props.type}</div>
                 <div className="font-medium text-sm w-full flex justify-start pb-2 animate-appear">{props.def}</div>

@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import './output.css'
 import WordForm from './components/WordForm';
+import Credentials from './credential.json'
 import axios from 'axios'
 import KeyBoard from './components/keyboard';
 import SVG from './svgs';
-import Settings,{ getInterval, readyUpPlayer, updateLetters, checkCompletion } from './Settings/index'
+import Settings, { getInterval, readyUpPlayer, updateLetters, checkCompletion } from './Settings/index'
 
 
 // !!!!!!!!!!!!! TO DO'S
@@ -19,17 +20,12 @@ function App() {
 
   const [playerData, setPlayerData] = useState(readyUpPlayer())
 
-  // console.log(playerData);
-
-  //  ! work on updateing letter arrays for each
-  const [wordData,setWordData] = useState({})
-
 
   const [isDark, setIsdark] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [isDaily, setIsdaily] = useState(true)
   const [letter, setLetter] = useState('')
-  
+
   const [results, setResults] = useState(false)
   const [selectedNum, setSelectedNum] = useState('1')
   const [wordList, setWordList] = useState((require('./words.json').arr).split(','))
@@ -70,13 +66,43 @@ function App() {
     getGivenLetters(currentWords[3].length - 2, 3) + 1,
   ])
 
-  const fetchWordData = (state, x) => {
+  const fetchWordData = async (state, x) => {
+
 
     const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${x}?key=91ba64f6-a0ce-4747-8dfc-0da21c402c84`
 
+
+    // const options = {
+    //   host: "od-api.oxforddictionaries.com",
+    //   port: "443",
+    //   protocol: "https",
+    //   path: `/api/v2/entries/en-gb/${x}`,
+    //   method: "GET",
+    //   headers: {
+    //     app_id: Credentials.id,
+    //     app_key: Credentials.key
+    //   }}
+
+    // const options = {
+    //   method: "GET",
+    //   url: `https://od-api.oxforddictionaries.com/api/v2/entries/en-gb/${x}`,
+    //   headers: {
+    //     app_id: Credentials.id,
+    //     app_key: Credentials.key
+    //   }
+    // }
+
+    // try {
+    //   const res = await axios(options);
+    //   let loc = res.results.lexicalEntries
+    //   if (!res.data[0].fl) loc = res.data[1]
+    //   state({
+    //     type: loc.lexicalCategory.text,
+    //     def: loc.entries.senses.shortDefinitions[0],
+
+
     axios.get(link)
       .then(res => {
-        // console.log(res.data);
 
         let loc = res.data[0]
         if (!res.data[0].fl) loc = res.data[1]
@@ -109,7 +135,7 @@ function App() {
   }
 
   const handleLetters = (e) => {
-    if (!e.target.getAttribute('id')) return
+    if (!e.target.getAttribute('id').toLowerCase()) return
 
     const value = e.target.getAttribute('id')
 
@@ -162,15 +188,15 @@ function App() {
   useEffect(() => {
     document.title = 'Key Letter'
     updateLetters(playerData)
-    
-    
+
+
     let four = checkCompletion(playerData.daily, currentWords, setcompletion)
-    
-    if(completion && four !== 4) {
+
+    if (completion && four !== 4) {
       setcompletion(false)
     } else if (!completion && four === 4) {
       setcompletion(true)
-    } else {}
+    } else { }
 
 
   }, [playerData])
@@ -180,7 +206,8 @@ function App() {
       <header className='absolute top-0 w-full pt-4'>
 
         <div className=' text-center  text-4xl uppercase'>
-          <span className={`text-sky-500 font-semibold`}>Key</span><span className='text-slate-600 font-normal'>Letter</span>
+          <span className={`text-sky-500 font-semibold`}>Key</span>
+          <span className='text-slate-600 font-normal'>-type</span>
         </div>
 
       </header>
@@ -220,8 +247,9 @@ function App() {
                     setLetter={setLetter}
                     selectedNum={selectedNum}
                     playerData={playerData}
-                    setPlayerData={setPlayerData} />
-                    
+                    setPlayerData={setPlayerData}
+                    results={results} />
+
                 </div>
 
                 <div id={2}
@@ -236,7 +264,8 @@ function App() {
                     setLetter={setLetter}
                     selectedNum={selectedNum}
                     playerData={playerData}
-                    setPlayerData={setPlayerData} />
+                    setPlayerData={setPlayerData}
+                    results={results} />
                 </div>
 
                 <div id={3}
@@ -251,7 +280,8 @@ function App() {
                     setLetter={setLetter}
                     selectedNum={selectedNum}
                     playerData={playerData}
-                    setPlayerData={setPlayerData} />
+                    setPlayerData={setPlayerData}
+                    results={results} />
                 </div>
 
                 <div id={4}
@@ -266,7 +296,8 @@ function App() {
                     setLetter={setLetter}
                     selectedNum={selectedNum}
                     playerData={playerData}
-                    setPlayerData={setPlayerData} />
+                    setPlayerData={setPlayerData}
+                    results={results} />
                 </div>
 
               </div>
