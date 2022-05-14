@@ -175,7 +175,7 @@ function WordForm(props) {
         {completed ?
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-700'>
                 <div className='mr-1 animate-slidefade'></div>
-                <SVG title={'complete'} classes={'text-green-500 h-6 w-6 animate-spin'} />
+                <SVG title={'complete'} classes={'text-slate-500 h-6 w-6 animate-spin opacity-50'} />
             </div>
             :
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-600'>
@@ -188,8 +188,8 @@ function WordForm(props) {
                 className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300  py-3 bg-white px-6 shadow-md shadow-slate-300 z-10">
                 {/* <div className="w-full text-center uppercase animate-appear">{props.word}</div> */}
 
-                <div className="italic font-normal text-sm w-full flex justify-start animate-appear">{props.type}</div>
-                <div className="font-medium text-sm w-full flex justify-start pb-2 animate-appear">{props.def}</div>
+                <div className="italic font-thin text-sm w-full flex justify-start animate-appear">{props.type}</div>
+                <div className="font-normal text-sm w-full flex justify-start pb-2 animate-appear">{props.def}</div>
                 <div className="flex w-full justify-start items-center flex text-lg">
                     {/* <div className='border-b border-slate-700 w-1 mr-2 opacity-50'></div> */}
                     {/* <div className='w-2 h-2 flex ml-1 mr-2 justify-center items-center text-3xl opacity-75'>{props.word.length}</div> */}
@@ -199,7 +199,7 @@ function WordForm(props) {
             </div>
             :
             <div onClick={() => handleSelected()}
-                className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300 py-3 bg-slate-100 px-2 opacity-90">
+                className="w-full relative text-2xl font-semibold flex flex-col border-b border-slate-300 py-3 bg-slate-100 px-2 opacity-90">
                 {/* <div className="w-full text-center uppercase">{props.word}</div> */}
 
                 {/* <div className="italic font-normal text-sm w-full flex justify-start">{props.type}</div>

@@ -198,7 +198,7 @@ function App() {
   }, [playerData])
 
   return (
-    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-default overflow-hidden overflow-y-hidden">
+    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative  overflow-hidden overflow-y-hidden">
       <header className='absolute top-0 w-full pt-4'>
 
         <div className=' text-center text-4xl sm:text-2xl uppercase'>
@@ -302,21 +302,21 @@ function App() {
             </div>
             :
             <div onClick={(e) => handleCardSelection(e)}
-              className=' bg-slate-100 h-screen'>
+              className=' bg-slate-100 h-screen w-screen'>
 
               <div className=' h-full '>
-                <div className=''>
+                <div className='h-full'>
                   <div className='relative grid grid-cols-7 content-center justify-center items-center text-center mx-7 my-4 '>
-                    <div className='text-sky-500 scale-125'>●</div>
-                    <div className='text-sky-500 scale-125'>●</div>
+                    <div className='text-sky-500 scale-150'>●</div>
+                    <div className='text-sky-500 scale-150'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
-                    <div className='absolute flex justify-center items-center h-full ml-6 text-orange-300'>
-                      <div className='border border-sky-500 w-6 flex justify-center items-center'></div>
-                      <div className='border border-sky-500 w-12 flex justify-center items-center'></div>
+                    <div className='absolute flex justify-center items-center h-full ml-6 mt-1 text-orange-300'>
+                      <div className='border-2 border-sky-500 w-6 flex justify-center items-center'></div>
+                      <div className='border-2 border-sky-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
@@ -332,21 +332,23 @@ function App() {
 
         </div>
 
-        <div className='bg-white py-2 fixed bottom-0 w-screen left-0 z-50'
+        <div className={isDaily ? 'bg-white py-2 fixed bottom-0 w-screen left-0 z-50' : 'pointer-events-none bg-white py-2 fixed bottom-0 w-screen left-0 z-50'}
           style={{ boxShadow: ' 0px -2px 5px #d4d4d4' }}
           >
+            {!isDaily && <div className='absolute w-full h-full top-0 left-0 opacity-25 bg-black'></div>}
+            
           {completion ? <>
             <div className='w-full flex justify-center items-center my-1'>
               <button onClick={() => handleSubmit()}
-                className='uppercase w-11/12 py-[4px] rounded-lg text-sky-500 bg-gradient-to-tl from-sky-200 to-white shadow-md shadow-slate-300 flex justify-center border border-sky-500' >
-                <div className='font-medium animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
+                className='uppercase w-11/12 py-[4px] rounded-lg text-green-900 bg-gradient-to-tl from-green-200 to-white shadow-md shadow-slate-300 flex justify-center border border-green-500' >
+                <div className='font-normal animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
               </button>
             </div>
           </> : <>
             <div className='relative w-full flex justify-center items-center my-1'>
               <div onClick={() => handleIncompleteFeild()}
                 className='uppercase w-11/12 py-[4px] rounded-md bg-white border border-slate-400 text-slate-500 shadow-md shadow-slate-300 flex justify-center' >
-                <div className='font-medium mr-2 pointer-events-none'>Submit</div>
+                <div className='font-normal mr-2 pointer-events-none'>Submit</div>
               </div>
               {incompleteFeild ? !results && <>
                 <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center   pr-4 py-1 bg-amber-100 font-medium text-sm text-orange-600 border border-orange-500 rounded-full shadow-md shadow-neutral-600 animate-opacityfade'>

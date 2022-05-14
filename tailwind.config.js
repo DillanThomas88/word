@@ -2,9 +2,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
-      fontFamily: {
-        default: ['Montserrat']
-      },
+      // fontFamily: {
+      //   default: ['Montserrat']
+      // },
       gridTemplateColumns: {
         // custom grid setup
         '50': 'repeat(50, minmax(0, 1fr))',
