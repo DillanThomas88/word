@@ -175,7 +175,7 @@ function WordForm(props) {
         {completed ?
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-700'>
                 <div className='mr-1 animate-slidefade'></div>
-                <SVG title={'exclamation'} classes={'text-orange-500 h-6 w-6 animate-reversespin'} />
+                <SVG title={'complete'} classes={'text-green-500 h-6 w-6 animate-spin'} />
             </div>
             :
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-600'>
@@ -186,7 +186,7 @@ function WordForm(props) {
         {selected ?
             <div onClick={() => handleSelected()}
                 className="w-full relative text-2xl font-bold flex flex-col border-b border-slate-300  py-3 bg-white px-6 shadow-md shadow-slate-300 z-10">
-                <div className="w-full text-center uppercase animate-appear">{props.word}</div>
+                {/* <div className="w-full text-center uppercase animate-appear">{props.word}</div> */}
 
                 <div className="italic font-normal text-sm w-full flex justify-start animate-appear">{props.type}</div>
                 <div className="font-medium text-sm w-full flex justify-start pb-2 animate-appear">{props.def}</div>

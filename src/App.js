@@ -16,6 +16,7 @@ import Settings, { getInterval, readyUpPlayer, updateLetters, checkCompletion } 
 
 function App() {
 
+
   const interval = getInterval()
 
   const [playerData, setPlayerData] = useState(readyUpPlayer())
@@ -72,21 +73,15 @@ function App() {
     const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${x}?key=91ba64f6-a0ce-4747-8dfc-0da21c402c84`
 
 
-    // const options = {
-    //   host: "od-api.oxforddictionaries.com",
-    //   port: "443",
-    //   protocol: "https",
-    //   path: `/api/v2/entries/en-gb/${x}`,
-    //   method: "GET",
-    //   headers: {
-    //     app_id: Credentials.id,
-    //     app_key: Credentials.key
-    //   }}
+
+
+    // !
 
     // const options = {
     //   method: "GET",
     //   url: `https://od-api.oxforddictionaries.com/api/v2/entries/en-gb/${x}`,
     //   headers: {
+    //     Accept: "application/json",
     //     app_id: Credentials.id,
     //     app_key: Credentials.key
     //   }
@@ -94,13 +89,15 @@ function App() {
 
     // try {
     //   const res = await axios(options);
+
     //   let loc = res.results.lexicalEntries
     //   if (!res.data[0].fl) loc = res.data[1]
     //   state({
     //     type: loc.lexicalCategory.text,
-    //     def: loc.entries.senses.shortDefinitions[0],
+    //     def: loc.entries.senses.shortDefinitions[0],})
+    //   } catch {(err => console.log(err))}
 
-
+    // !
     axios.get(link)
       .then(res => {
 
@@ -111,8 +108,7 @@ function App() {
           def: loc.shortdef[0],
 
         })
-      })
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
   }
 
   const handleReveal = () => {
@@ -202,17 +198,17 @@ function App() {
   }, [playerData])
 
   return (
-    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-default overflow-hidden overflow-y-hidden grid content-start">
+    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-default overflow-hidden overflow-y-hidden">
       <header className='absolute top-0 w-full pt-4'>
 
-        <div className=' text-center  text-4xl uppercase'>
+        <div className=' text-center text-4xl sm:text-2xl uppercase'>
           <span className={`text-sky-500 font-semibold`}>Key</span>
-          <span className='text-slate-600 font-normal'>-type</span>
+          <span className='text-slate-600 font-normal'>Letter</span>
         </div>
 
       </header>
 
-      <main className={'pt-14'}>
+      <main className={'pt-14 h-full flex flex-col items-end justify-between'}>
 
         <div className='grid grid-cols-1'>
           <div className='flex mt-4 justify-start items-end ml-4'>
@@ -229,10 +225,11 @@ function App() {
 
             </div>
           </div>
+          <div className='h-4 w-full bg-slate-100 shadow-md shadow-neutral-300 z-20'></div>
 
           {isDaily
             ? <div onClick={(e) => handleCardSelection(e)}
-              className={results ? ' pointer-events-none bg-slate-100 h-screen pt-4' : 'bg-slate-100 h-screen pt-4'}>
+              className={results ? ' pointer-events-none bg-slate-100 h-full w-screen' : 'bg-slate-100 h-full w-screen overflow-scroll h-96'}>
 
               <div>
                 <div id={1}
@@ -285,7 +282,7 @@ function App() {
                 </div>
 
                 <div id={4}
-                  className='card w-full'>
+                  className='card w-full mb-20'>
                   <WordForm
                     id={4}
                     word={currentWords[3]}
@@ -335,16 +332,18 @@ function App() {
 
         </div>
 
-        <div className='absolute bottom-0 mb-2 px-1 w-full flex flex-col justify-center items-center rounded-lg'>
+        <div className='bg-white py-2 fixed bottom-0 w-screen left-0 z-50'
+          style={{ boxShadow: ' 0px -2px 5px #d4d4d4' }}
+          >
           {completion ? <>
-            <div className='w-full flex justify-center items-center'>
+            <div className='w-full flex justify-center items-center my-1'>
               <button onClick={() => handleSubmit()}
                 className='uppercase w-11/12 py-[4px] rounded-lg text-sky-500 bg-gradient-to-tl from-sky-200 to-white shadow-md shadow-slate-300 flex justify-center border border-sky-500' >
                 <div className='font-medium animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
               </button>
             </div>
           </> : <>
-            <div className='relative w-full flex justify-center items-center'>
+            <div className='relative w-full flex justify-center items-center my-1'>
               <div onClick={() => handleIncompleteFeild()}
                 className='uppercase w-11/12 py-[4px] rounded-md bg-white border border-slate-400 text-slate-500 shadow-md shadow-slate-300 flex justify-center' >
                 <div className='font-medium mr-2 pointer-events-none'>Submit</div>

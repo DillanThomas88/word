@@ -1,8 +1,11 @@
 import template from './settings.json'
 
+const t = new Date();
+const today = Math.ceil((t - new Date(t.getFullYear(),0,1)) / 86400000);
 export function readyUpPlayer() {
 
     // console.log(template.keyLetterData);
+    
 
     let data = {}
 
@@ -13,26 +16,23 @@ export function readyUpPlayer() {
 
     } else { data = JSON.parse(localStorage.getItem("keyLetterData")) }
 
-    if (data.currentday !== dayOfYear(new Date())) {
+    if (data.currentday !== today) {
         data = template.keyLetterData
-        data.currentday = dayOfYear(new Date())
+        data.currentday = today
     }
-
-
+    
 
     localStorage.setItem('keyLetterData', JSON.stringify(data))
     return data
 
 }
 
-const dayOfYear = date =>
-    Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
 export function getInterval() {
 
     const startDay = template.day
 
-    let interval = (dayOfYear(new Date()) - startDay) * 4
+    let interval = (today - startDay) * 4
 
     return {
         default: interval,

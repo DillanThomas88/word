@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*
-! tailwindcss v3.0.22 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -472,6 +472,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   pointer-events: none;
 }
 
+.fixed{
+  position: fixed;
+}
+
 .absolute{
   position: absolute;
 }
@@ -488,6 +492,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   bottom: 0px;
 }
 
+.left-0{
+  left: 0px;
+}
+
 .bottom-16{
   bottom: 4rem;
 }
@@ -500,12 +508,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0.5rem;
 }
 
-.z-50{
-  z-index: 50;
-}
-
 .z-20{
   z-index: 20;
+}
+
+.z-50{
+  z-index: 50;
 }
 
 .z-10{
@@ -522,6 +530,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1rem;
 }
 
+.my-1{
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -530,6 +543,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mx-\[3px\]{
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.mx-\[1px\]{
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .mt-4{
@@ -548,12 +566,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 0.5rem;
 }
 
-.ml-6{
-  margin-left: 1.5rem;
+.mb-20{
+  margin-bottom: 5rem;
 }
 
-.mb-2{
-  margin-bottom: 0.5rem;
+.ml-6{
+  margin-left: 1.5rem;
 }
 
 .ml-2{
@@ -562,10 +580,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-1{
   margin-left: 0.25rem;
-}
-
-.mt-1\.5{
-  margin-top: 0.375rem;
 }
 
 .mt-1{
@@ -588,12 +602,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: contents;
 }
 
-.h-screen{
-  height: 100vh;
-}
-
 .h-full{
   height: 100%;
+}
+
+.h-4{
+  height: 1rem;
+}
+
+.h-96{
+  height: 24rem;
+}
+
+.h-screen{
+  height: 100vh;
 }
 
 .h-8{
@@ -616,8 +638,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 58px;
 }
 
+.h-1\/2{
+  height: 50%;
+}
+
 .w-full{
   width: 100%;
+}
+
+.w-screen{
+  width: 100vw;
 }
 
 .w-6{
@@ -644,24 +674,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0.5rem;
 }
 
-.w-\[49px\]{
-  width: 49px;
+.w-\[52px\]{
+  width: 52px;
 }
 
-.w-\[32px\]{
-  width: 32px;
+.w-\[36px\]{
+  width: 36px;
 }
 
 .scale-125{
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.scale-90{
-  --tw-scale-x: .9;
-  --tw-scale-y: .9;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -885,34 +908,6 @@ Ensure the default browser behavior of the `hidden` attribute.
           animation: slidefade .5s forwards;
 }
 
-@-webkit-keyframes spinfade{
-  from{
-    -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-  }
-
-  to{
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
-
-@keyframes spinfade{
-  from{
-    -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-  }
-
-  to{
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
-
-.animate-reversespin{
-  animation: spinfade .1s reverse forwards;
-}
-
 @-webkit-keyframes spin{
   to{
     -webkit-transform: scaleX(1);
@@ -995,10 +990,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-content: center;
 }
 
-.content-start{
-  align-content: flex-start;
-}
-
 .items-end{
   align-items: flex-end;
 }
@@ -1015,8 +1006,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: center;
 }
 
+.justify-between{
+  justify-content: space-between;
+}
+
 .overflow-hidden{
   overflow: hidden;
+}
+
+.overflow-scroll{
+  overflow: scroll;
 }
 
 .overflow-y-hidden{
@@ -1095,11 +1094,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
 
-.border-red-500{
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
-}
-
 .bg-slate-100{
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
@@ -1113,36 +1107,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-amber-100{
   --tw-bg-opacity: 1;
   background-color: rgb(254 243 199 / var(--tw-bg-opacity));
-}
-
-.bg-sky-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
-}
-
-.bg-red-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
-.bg-green-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.bg-slate-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
-.bg-slate-300{
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
-}
-
-.bg-red-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-tl{
@@ -1163,6 +1127,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(186 230 253 / 0));
 }
 
+.from-sky-600{
+  --tw-gradient-from: #0284c7;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(2 132 199 / 0));
+}
+
 .from-sky-800{
   --tw-gradient-from: #075985;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(7 89 133 / 0));
@@ -1173,37 +1142,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(38 38 38 / 0));
 }
 
-.from-sky-700{
-  --tw-gradient-from: #0369a1;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(3 105 161 / 0));
-}
-
-.from-emerald-700{
-  --tw-gradient-from: #047857;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(4 120 87 / 0));
-}
-
-.from-emerald-600{
-  --tw-gradient-from: #059669;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(5 150 105 / 0));
-}
-
-.from-emerald-500{
-  --tw-gradient-from: #10b981;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(16 185 129 / 0));
-}
-
-.from-sky-600{
-  --tw-gradient-from: #0284c7;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(2 132 199 / 0));
-}
-
 .to-slate-500{
   --tw-gradient-to: #64748b;
 }
 
 .to-white{
   --tw-gradient-to: #fff;
+}
+
+.to-sky-500{
+  --tw-gradient-to: #0ea5e9;
 }
 
 .to-sky-600{
@@ -1214,18 +1162,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-to: #404040;
 }
 
-.to-sky-500{
-  --tw-gradient-to: #0ea5e9;
-}
-
-.to-emerald-500{
-  --tw-gradient-to: #10b981;
-}
-
-.to-emerald-400{
-  --tw-gradient-to: #34d399;
-}
-
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1234,6 +1170,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-1{
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .py-\[4px\]{
@@ -1392,14 +1333,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(64 64 64 / var(--tw-text-opacity));
 }
 
+.text-green-500{
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
 .text-orange-500{
   --tw-text-opacity: 1;
   color: rgb(249 115 22 / var(--tw-text-opacity));
-}
-
-.text-red-500{
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .opacity-50{
@@ -1426,6 +1367,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-neutral-300{
+  --tw-shadow-color: #d4d4d4;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
 .shadow-slate-300{
   --tw-shadow-color: #cbd5e1;
   --tw-shadow: var(--tw-shadow-colored);
@@ -1433,11 +1379,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .shadow-neutral-600{
   --tw-shadow-color: #525252;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-red-300{
-  --tw-shadow-color: #fca5a5;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -1449,4 +1390,33 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-black:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gradient-to-tl:hover{
+  background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+}
+
+.hover\:from-sky-900:hover{
+  --tw-gradient-from: #0c4a6e;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(12 74 110 / 0));
+}
+
+.hover\:from-neutral-800:hover{
+  --tw-gradient-from: #262626;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(38 38 38 / 0));
+}
+
+.hover\:to-sky-700:hover{
+  --tw-gradient-to: #0369a1;
+}
+
+.hover\:to-neutral-800:hover{
+  --tw-gradient-to: #262626;
+}
+
+@media (min-width: 640px){
+  .sm\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }

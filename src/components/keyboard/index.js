@@ -10,7 +10,7 @@ function KeyBoard({handleLetters}) {
 
 
     return (<div onClick={(e) => handleLetters(e)}
-    className="w-full flex flex-wrap w-full justify-center items-center">
+    className="w-full flex flex-wrap  justify-center items-center">
         {keyArr.map((data,index) => <Key key={index} data={data} index={index} length={length} />)}
     
     </div>)
