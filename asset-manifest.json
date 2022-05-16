@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/word/static/css/main.fe4a04d1.css",
-    "main.js": "/word/static/js/main.b5f60c33.js",
+    "main.js": "/word/static/js/main.e6edcca1.js",
     "static/js/787.ca78f21f.chunk.js": "/word/static/js/787.ca78f21f.chunk.js",
     "index.html": "/word/index.html",
     "static/media/delete.svg": "/word/static/media/delete.d34b5cb04039724c8f1a183c316427c0.svg",
     "static/media/complete.svg": "/word/static/media/complete.f0a4ff93c9c267f94afe99b2f2faa40d.svg",
     "static/media/exclamation.svg": "/word/static/media/exclamation.7bb53d17eafd47be7bc9e02871d89114.svg",
     "main.fe4a04d1.css.map": "/word/static/css/main.fe4a04d1.css.map",
-    "main.b5f60c33.js.map": "/word/static/js/main.b5f60c33.js.map",
+    "main.e6edcca1.js.map": "/word/static/js/main.e6edcca1.js.map",
     "787.ca78f21f.chunk.js.map": "/word/static/js/787.ca78f21f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fe4a04d1.css",
-    "static/js/main.b5f60c33.js"
+    "static/js/main.e6edcca1.js"
   ]
 }
