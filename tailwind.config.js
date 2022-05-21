@@ -21,12 +21,15 @@ module.exports = {
         throb: 'throb 1.2s linear infinite',
         pop: 'pop .1s linear forwards',
         opacityfade: 'opacityfade 3s forwards',
+        fadein: 'fade 1s forwards',
+        fadeout: 'fade 1s reverse forwards'
       },
       keyframes: {
         appear: {
           from: { opacity: 0, transform: 'translateX(1rem)' },
           to: { opacity: 1, transform: 'translateX(0rem)' },
         },
+
         spin: {
           from: {transform: 'scaleX(0)'},
           to: {transform: 'scaleX(1)'}
@@ -42,7 +45,7 @@ module.exports = {
         },
         colorfade: {
           from: {backgroundColor: '#404040'},
-          to: {backgroundColor: '#0ea5e9'}
+          to: {backgroundColor: '#3b82f6'}
         },
         throb: {
           '0%': {transform: 'scaleX(1)'},
@@ -59,6 +62,10 @@ module.exports = {
           '10%': {transform: 'translateY(0rem)', opacity: 1},
           '70%': {transform: 'translateY(0rem)', opacity: 1},
           '100%': {transform: 'translateY(-1.1rem)', opacity: 0},
+        },
+        fade: {
+          from: { opacity: 0 },
+          to: {opacity: 1 }
         }
 
 

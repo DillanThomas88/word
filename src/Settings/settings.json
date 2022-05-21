@@ -1,11 +1,12 @@
 {
     
-    "day": 133,
+    "day": 141,
 
     "keyLetterData": {
-        "version": 0.5,
+        "version": 0.6,
         "currentday": 129,
         "daily": [[],[],[],[]],
-        "weekly": []
+        "weekly": [],
+        "results": false
     }
 }

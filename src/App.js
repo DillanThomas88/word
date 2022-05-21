@@ -9,6 +9,8 @@ import SVG from './svgs';
 import Settings, { getInterval, readyUpPlayer, updateLetters, checkCompletion } from './Settings/index'
 
 
+
+
 // !!!!!!!!!!!!! TO DO'S
 // check if you guessed the right word
 // flap board effect for scoring animations
@@ -27,9 +29,9 @@ function App() {
   const [isDaily, setIsdaily] = useState(true)
   const [letter, setLetter] = useState('')
 
-  const [results, setResults] = useState(false)
+  const [results, setResults] = useState(playerData.results)
   const [selectedNum, setSelectedNum] = useState('1')
-  const [wordList, setWordList] = useState((require('./words.json').arr).split(','))
+  const [wordList, setWordList] = useState((require('./words.json').list).split(','))
 
   const [word1def, setword1def] = useState({})
   const [word2def, setword2def] = useState({})
@@ -67,48 +69,95 @@ function App() {
     getGivenLetters(currentWords[3].length - 2, 3) + 1,
   ])
 
-  const fetchWordData = async (state, x) => {
+  const fetchWordData = async (state, findWord) => {
 
 
-    const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${x}?key=91ba64f6-a0ce-4747-8dfc-0da21c402c84`
-
-
-
-
-    // !
+    const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${findWord}?key=91ba64f6-a0ce-4747-8dfc-0da21c402c84`
 
     // const options = {
-    //   method: "GET",
-    //   url: `https://od-api.oxforddictionaries.com/api/v2/entries/en-gb/${x}`,
+    //   method: 'GET',
+    //   url: 'https://wordsapiv1.p.rapidapi.com/words/',
+    //   params: {
+    //     // letterPattern: '[a-z]',
+    //     pronunciationpattern: '.*æm$',
+    //     lettersmin: '3',
+    //     lettersMax: '9',
+    //     limit: '10',
+    //     page: '500',
+    //     frequencymin: '6',
+    //   },
     //   headers: {
-    //     Accept: "application/json",
-    //     app_id: Credentials.id,
-    //     app_key: Credentials.key
+    //     'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
+    //     'X-RapidAPI-Key': '243fa6edf4mshdc656e6ae210fc6p13e6dbjsn13052493e248'
     //   }
-    // }
-
-    // try {
-    //   const res = await axios(options);
-
-    //   let loc = res.results.lexicalEntries
-    //   if (!res.data[0].fl) loc = res.data[1]
-    //   state({
-    //     type: loc.lexicalCategory.text,
-    //     def: loc.entries.senses.shortDefinitions[0],})
-    //   } catch {(err => console.log(err))}
+    // };
+    // axios.request(options).then(function (response) {
+    //   console.log(response.data);
+    //   fs.writeFile('src/write.json', response.data.toString(), err => {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     //file written successfully
+    //   })
+    // }).catch(function (error) {
+    //   console.error(error);
+    // });
 
     // !
-    axios.get(link)
-      .then(res => {
+    const { wordnik, oxford } = Credentials
 
-        let loc = res.data[0]
-        if (!res.data[0].fl) loc = res.data[1]
-        state({
-          type: loc.fl,
-          def: loc.shortdef[0],
+    const wordnikLINK = `${wordnik.baseURL}${findWord.toLowerCase()}${wordnik.key}`
+    const OxfordLINK = `${oxford.baseURL}${findWord.toLowerCase()}?fields=definitions&strictMatch=false`
 
-        })
-      }).catch(err => console.log(err))
+
+    const options = {
+      method: 'GET',
+      url: `https://wordsapiv1.p.rapidapi.com/words/${findWord}`,
+      headers: {
+        'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
+        'X-RapidAPI-Key': '243fa6edf4mshdc656e6ae210fc6p13e6dbjsn13052493e248'
+      }
+    };
+
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      let loc = response.data.results[0]
+      // if (!res.data[0]) loc = res.data.meanings[0]
+      state({
+        type: loc.partOfSpeech,
+        def: loc.definition,
+
+      })
+    }).catch(function (error) {
+      console.error(error);
+    });
+
+
+
+
+    // ! wordnik
+
+    // axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${findWord}`)
+    //   .then(res => {
+
+    //     // console.log(res.data[0]);
+
+    //   }).catch(err => console.log(err))
+
+
+    // ! backup
+    // axios.get(link)
+    //   .then(res => {
+    //     console.log(res);
+    //     let loc = res.data[0]
+    //     if (!res.data[0].fl) loc = res.data[1]
+    //     state({
+    //       type: loc.fl,
+    //       def: loc.shortdef[0],
+
+    //     })
+    //   }).catch(err => console.log(err))
   }
 
   const handleReveal = () => {
@@ -131,7 +180,7 @@ function App() {
   }
 
   const handleLetters = (e) => {
-    if (!e.target.getAttribute('id').toLowerCase()) return
+    if (!e.target.getAttribute('id')) return
 
     const value = e.target.getAttribute('id')
 
@@ -151,8 +200,9 @@ function App() {
 
   const handleSubmit = () => {
     setResults(true)
+    updateLetters({ ...playerData, results: true })
     setcompletion(!completion)
-    setSelectedNum(0)
+    setSelectedNum(1)
   }
 
   const [incompleteFeild, setIncompleteFeild] = useState(false)
@@ -198,20 +248,20 @@ function App() {
   }, [playerData])
 
   return (
-    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative  overflow-hidden overflow-y-hidden">
-      <header className='absolute top-0 w-full pt-4'>
+    <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-sans">
+      <header className='absolute top-0 w-full pt-3'>
 
         <div className=' text-center text-4xl sm:text-2xl uppercase'>
-          <span className={`text-sky-500 font-semibold`}>Key</span>
-          <span className='text-slate-600 font-normal'>Letter</span>
+          <span className={`text-blue-500 font-thin`}><span className='font-serif font-semibold text-blue-500 text-5xl'>K</span>ey</span>
+          <span className='text-slate-600 font-thin'>Letter</span>
         </div>
 
       </header>
 
-      <main className={'pt-14 h-full flex flex-col items-end justify-between'}>
+      <main className={' pt-14 flex flex-col items-end justify-between h-full animate-fadein'}>
 
         <div className='grid grid-cols-1'>
-          <div className='flex mt-4 justify-start items-end ml-4'>
+          <div className='flex mt-4 justify-start items-end ml-4 font-serif'>
             <div onClick={() => handleTabs()}
               className={isDaily ? `mr-1 text-center uppercase flex justify-center bg-slate-100 items-center border-x border-t border-slate-400 px-4 pt-2 rounded-t-sm text-slate-700 font-bold` : ` mr-2 bg-gradient-to-tl from-slate-700 to-slate-500 text-white text-center uppercase flex justify-center items-center border-x border-t border-slate-300  px-4 pt-1 rounded-t-sm`}>
               <div className='uppercase font-normal'>Daily #</div>
@@ -229,9 +279,9 @@ function App() {
 
           {isDaily
             ? <div onClick={(e) => handleCardSelection(e)}
-              className={results ? ' pointer-events-none bg-slate-100 h-full w-screen' : 'bg-slate-100 h-full w-screen overflow-scroll h-96'}>
+              className={results ? ' bg-slate-100 w-screen overflow-y-scroll' : 'bg-slate-100 w-screen '}>
 
-              <div>
+              <div className='overflow-y-scroll'>
                 <div id={1}
                   className='card w-full'>
                   <WordForm
@@ -282,7 +332,7 @@ function App() {
                 </div>
 
                 <div id={4}
-                  className='card w-full mb-20'>
+                  className='card w-full mb-72'>
                   <WordForm
                     id={4}
                     word={currentWords[3]}
@@ -296,6 +346,7 @@ function App() {
                     setPlayerData={setPlayerData}
                     results={results} />
                 </div>
+                {/* <div className='h-10 w-full bg-slate-100'></div> */}
 
               </div>
 
@@ -307,16 +358,16 @@ function App() {
               <div className=' h-full '>
                 <div className='h-full'>
                   <div className='relative grid grid-cols-7 content-center justify-center items-center text-center mx-7 my-4 '>
-                    <div className='text-sky-500 scale-150'>●</div>
-                    <div className='text-sky-500 scale-150'>●</div>
+                    <div className='text-blue-500 scale-150'>●</div>
+                    <div className='text-blue-500 scale-150'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
                     <div className='text-slate-500 scale-125'>●</div>
-                    <div className='absolute flex justify-center items-center h-full ml-6 mt-1 text-orange-300'>
-                      <div className='border-2 border-sky-500 w-6 flex justify-center items-center'></div>
-                      <div className='border-2 border-sky-500 w-12 flex justify-center items-center'></div>
+                    <div className='absolute flex justify-center items-center h-full ml-6 mt-1 text-amber-300'>
+                      <div className='border-2 border-blue-500 w-6 flex justify-center items-center'></div>
+                      <div className='border-2 border-blue-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
@@ -332,30 +383,31 @@ function App() {
 
         </div>
 
-        <div className={isDaily ? 'bg-white py-2 fixed bottom-0 w-screen left-0 z-50' : 'pointer-events-none bg-white py-2 fixed bottom-0 w-screen left-0 z-50'}
+        <div className={results ? ' bg-white py-2 fixed bottom-0 w-screen left-0 z-50' :
+          isDaily ? 'bg-white py-2 fixed bottom-0 w-screen left-0 z-50' : 'pointer-events-none bg-white py-2 fixed bottom-0 w-screen left-0 z-50'}
           style={{ boxShadow: ' 0px -2px 5px #d4d4d4' }}
-          >
-            {!isDaily && <div className='absolute w-full h-full top-0 left-0 opacity-25 bg-black'></div>}
-            
+        >
+          {!isDaily ? <div className='absolute z-50 w-full h-full top-0 left-0 opacity-25 bg-black'></div> : <></>}
+
           {completion ? <>
-            <div className='w-full flex justify-center items-center my-1'>
+            <div className={`${results && 'pointer-events-none opacity-90'} w-full flex justify-center items-center my-1`}>
               <button onClick={() => handleSubmit()}
-                className='uppercase w-11/12 py-[4px] rounded-lg text-green-900 bg-gradient-to-tl from-green-200 to-white shadow-md shadow-slate-300 flex justify-center border border-green-500' >
+                className='uppercase w-11/12 py-[4px] rounded-lg text-blue-900 bg-gradient-to-tl from-blue-200 to-white shadow-md shadow-slate-300 flex justify-center border border-blue-500' >
                 <div className='font-normal animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
               </button>
             </div>
           </> : <>
-            <div className='relative w-full flex justify-center items-center my-1'>
+            <div className={results ? 'pointer-events-none opacity-90 relative w-full flex justify-center items-center my-1' : ' relative w-full flex justify-center items-center my-1'}>
               <div onClick={() => handleIncompleteFeild()}
-                className='uppercase w-11/12 py-[4px] rounded-md bg-white border border-slate-400 text-slate-500 shadow-md shadow-slate-300 flex justify-center' >
+                className={` uppercase w-11/12 py-[4px] rounded-md bg-white border border-slate-400 text-slate-500 shadow-md shadow-slate-300 flex justify-center hover:opacity-50`} >
                 <div className='font-normal mr-2 pointer-events-none'>Submit</div>
               </div>
               {incompleteFeild ? !results && <>
-                <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center   pr-4 py-1 bg-amber-100 font-medium text-sm text-orange-600 border border-orange-500 rounded-full shadow-md shadow-neutral-600 animate-opacityfade'>
+                <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center   pr-4 py-1 bg-amber-100 font-medium text-sm text-amber-600 border border-amber-400 rounded-full shadow-md shadow-neutral-600 animate-opacityfade'>
                   <SVG title={'exclamation'} classes={'w-6 ml-2'} />
                   <div className='flex flex-col justify-center items-center'>
                     <div className='font-semibold text-center'>Don't have the answers?</div>
-                    <div className='flex justify-center items-center text-center text-xs px-2'>Try again with random letters.</div>
+                    <div className='flex justify-center items-center text-center text-xs px-2'>You have incomplete words</div>
                   </div>
                 </div>
 
@@ -365,8 +417,10 @@ function App() {
             </div>
 
           </>}
-          <KeyBoard handleLetters={handleLetters} />
+          <KeyBoard handleLetters={handleLetters} results={results} />
         </div>
+
+
 
 
 

@@ -21,8 +21,11 @@ export function readyUpPlayer() {
         data.currentday = today
     }
     
-
-    localStorage.setItem('keyLetterData', JSON.stringify(data))
+    if(data.version !== 0.6) {
+        localStorage.setItem('keyLetterData', JSON.stringify(template.keyLetterData))
+    } else {
+        localStorage.setItem('keyLetterData', JSON.stringify(data))
+    }
     return data
 
 }
@@ -84,15 +87,8 @@ export function showResults(answer, guess){
         if(!answer.length) return
         
         
-        
         let t = setInterval(() => {
 
-            if(answer[randomNum] == guess[randomNum]){
-                // console.log('correct');
-            } else {
-                // console.log('incorrect')
-            };
-            // console.log(answer[randomNum] , guess[randomNum]);
             answer.splice(randomNum,1)
             guess.splice(randomNum,1)
             showLetter()
@@ -106,3 +102,5 @@ export function showResults(answer, guess){
     showLetter()
 
 }
+
+
