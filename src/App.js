@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import './output.css'
 import WordForm from './components/WordForm';
-import Credentials from './credential.json'
 import axios from 'axios'
 import KeyBoard from './components/keyboard';
 import SVG from './svgs';
@@ -72,43 +71,7 @@ function App() {
   const fetchWordData = async (state, findWord) => {
 
 
-    const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${findWord}?key=${process.env.API_KEY}`
 
-    // const options = {
-    //   method: 'GET',
-    //   url: 'https://wordsapiv1.p.rapidapi.com/words/',
-    //   params: {
-    //     // letterPattern: '[a-z]',
-    //     pronunciationpattern: '.*æm$',
-    //     lettersmin: '3',
-    //     lettersMax: '9',
-    //     limit: '10',
-    //     page: '500',
-    //     frequencymin: '6',
-    //   },
-    //   headers: {
-    //     'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
-    //     'X-RapidAPI-Key': '243fa6edf4mshdc656e6ae210fc6p13e6dbjsn13052493e248'
-    //   }
-    // };
-    // axios.request(options).then(function (response) {
-    //   console.log(response.data);
-    //   fs.writeFile('src/write.json', response.data.toString(), err => {
-    //     if (err) {
-    //       console.error(err)
-    //       return
-    //     }
-    //     //file written successfully
-    //   })
-    // }).catch(function (error) {
-    //   console.error(error);
-    // });
-
-    // !
-    const { wordnik, oxford } = Credentials
-
-    const wordnikLINK = `${wordnik.baseURL}${findWord.toLowerCase()}${wordnik.key}`
-    const OxfordLINK = `${oxford.baseURL}${findWord.toLowerCase()}?fields=definitions&strictMatch=false`
 
 
     const options = {
@@ -116,7 +79,7 @@ function App() {
       url: `https://wordsapiv1.p.rapidapi.com/words/${findWord}`,
       headers: {
         'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
-        'X-RapidAPI-Key': '243fa6edf4mshdc656e6ae210fc6p13e6dbjsn13052493e248'
+        'X-RapidAPI-Key': process.env.REACT_APP_API_KEY
       }
     };
 
@@ -133,31 +96,6 @@ function App() {
       console.error(error);
     });
 
-
-
-
-    // ! wordnik
-
-    // axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${findWord}`)
-    //   .then(res => {
-
-    //     // console.log(res.data[0]);
-
-    //   }).catch(err => console.log(err))
-
-
-    // ! backup
-    // axios.get(link)
-    //   .then(res => {
-    //     console.log(res);
-    //     let loc = res.data[0]
-    //     if (!res.data[0].fl) loc = res.data[1]
-    //     state({
-    //       type: loc.fl,
-    //       def: loc.shortdef[0],
-
-    //     })
-    //   }).catch(err => console.log(err))
   }
 
   const handleReveal = () => {
