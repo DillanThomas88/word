@@ -249,23 +249,23 @@ function App() {
 
   return (
     <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-sans">
-      <header className='absolute top-0 w-full pt-3'>
+      <header className='absolute top-0 w-full pt-4'>
 
-        <div className=' text-center text-4xl sm:text-2xl uppercase'>
-          <span className={`text-blue-500 font-thin`}><span className='font-serif font-semibold text-blue-500 text-5xl'>K</span>ey</span>
+        <div className=' text-center text-5xl sm:text-2xl uppercase'>
+          <span className={`text-blue-500 font-normal`}>Key</span>
           <span className='text-slate-600 font-thin'>Letter</span>
         </div>
 
       </header>
 
-      <main className={' pt-14 flex flex-col items-end justify-between h-full animate-fadein'}>
+      <main className={' pt-16 flex flex-col items-end justify-between h-full animate-fadein'}>
 
         <div className='grid grid-cols-1'>
           <div className='flex mt-4 justify-start items-end ml-4 font-serif'>
             <div onClick={() => handleTabs()}
               className={isDaily ? `mr-1 text-center uppercase flex justify-center bg-slate-100 items-center border-x border-t border-slate-400 px-4 pt-2 rounded-t-sm text-slate-700 font-bold` : ` mr-2 bg-gradient-to-tl from-slate-700 to-slate-500 text-white text-center uppercase flex justify-center items-center border-x border-t border-slate-300  px-4 pt-1 rounded-t-sm`}>
-              <div className='uppercase font-normal'>Daily #</div>
-              <div className='font-semibold text-lg px-1'>{interval.day}</div>
+              <div className='uppercase font-normal'>Daily</div>
+              <div className='font-semibold text-lg px-1'>#{interval.day}</div>
 
             </div>
             <div onClick={() => handleTabs()}
@@ -358,16 +358,16 @@ function App() {
               <div className=' h-full '>
                 <div className='h-full'>
                   <div className='relative grid grid-cols-7 content-center justify-center items-center text-center mx-7 my-4 '>
-                    <div className='text-blue-500 scale-150'>●</div>
-                    <div className='text-blue-500 scale-150'>●</div>
-                    <div className='text-slate-500 scale-125'>●</div>
-                    <div className='text-slate-500 scale-125'>●</div>
-                    <div className='text-slate-500 scale-125'>●</div>
-                    <div className='text-slate-500 scale-125'>●</div>
-                    <div className='text-slate-500 scale-125'>●</div>
+                    <div className='text-blue-500'>●</div>
+                    <div className='text-blue-500'>●</div>
+                    <div className='text-slate-500'>●</div>
+                    <div className='text-slate-500'>●</div>
+                    <div className='text-slate-500'>●</div>
+                    <div className='text-slate-500'>●</div>
+                    <div className='text-slate-500'>●</div>
                     <div className='absolute flex justify-center items-center h-full ml-6 mt-1 text-amber-300'>
-                      <div className='border-2 border-blue-500 w-6 flex justify-center items-center'></div>
-                      <div className='border-2 border-blue-500 w-12 flex justify-center items-center'></div>
+                      <div className='border border-blue-500 w-6 flex justify-center items-center'></div>
+                      <div className='border border-blue-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
                       <div className='border border-slate-500 w-12 flex justify-center items-center'></div>
@@ -389,21 +389,53 @@ function App() {
         >
           {!isDaily ? <div className='absolute z-50 w-full h-full top-0 left-0 opacity-25 bg-black'></div> : <></>}
 
-          {completion ? <>
-            <div className={`${results && 'pointer-events-none opacity-90'} w-full flex justify-center items-center my-1`}>
-              <button onClick={() => handleSubmit()}
-                className='uppercase w-11/12 py-[4px] rounded-lg text-blue-900 bg-gradient-to-tl from-blue-200 to-white shadow-md shadow-slate-300 flex justify-center border border-blue-500' >
-                <div className='font-normal animate-throb mr-2 pointer-events-none'>Submit</div> <div className='font-normal pointer-events-none'></div>
-              </button>
-            </div>
-          </> : <>
-            <div className={results ? 'pointer-events-none opacity-90 relative w-full flex justify-center items-center my-1' : ' relative w-full flex justify-center items-center my-1'}>
-              <div onClick={() => handleIncompleteFeild()}
-                className={` uppercase w-11/12 py-[4px] rounded-md bg-white border border-slate-400 text-slate-500 shadow-md shadow-slate-300 flex justify-center hover:opacity-50`} >
-                <div className='font-normal mr-2 pointer-events-none'>Submit</div>
+          {completion ? results ? <>
+            <div className={` w-full flex justify-center items-center my-1`}>
+              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-500 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
+                i
               </div>
-              {incompleteFeild ? !results && <>
-                <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center   pr-4 py-1 bg-amber-100 font-medium text-sm text-amber-600 border border-amber-400 rounded-full shadow-md shadow-neutral-600 animate-opacityfade'>
+              <button onClick={() => handleSubmit()}
+                className={`${results && 'pointer-events-none'} uppercase w-full py-[4px] rounded-full text-slate-300 shadow-md shadow-slate-300 flex justify-center border border-slate-300`} >
+                <div className='font-normal pointer-events-none text-lg'>Completed</div> <div className='font-normal pointer-events-none'></div>
+              </button>
+              <div className={`${results && 'pointer-events-none'} pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:opacity-50 
+              flex items-center text-xs font-semibold text-slate-300 font-sans`}>
+                Hint
+              </div>
+            </div>
+
+          </> : <>
+
+            <div className={`${results && 'pointer-events-none'} w-full flex justify-center items-center my-1`}>
+              <div className='pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-slate-300 flex items-center font-bold font-serif lowercase text-xl'>
+                i
+              </div>
+              <button onClick={() => handleSubmit()}
+                className='uppercase w-full py-[4px] rounded-full text-blue-500 shadow-md shadow-slate-300 flex justify-center border border-blue-500' >
+                <div className='font-normal pointer-events-none text-lg'>Submit</div> <div className='font-normal pointer-events-none'></div>
+              </button>
+              <div className='pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
+              flex items-center text-xs font-semibold text-slate-300 font-sans'>
+                Hint
+              </div>
+            </div>
+
+          </> : <>
+
+            <div className={results ? 'pointer-events-none opacity-90 relative w-full flex justify-between items-center my-1' : ' relative w-full flex justify-between items-center my-1'}>
+              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
+                i
+              </div>
+              <div onClick={() => handleIncompleteFeild()}
+                className={` uppercase w-full py-1 rounded-full bg-white border border-slate-300 text-slate-300 shadow-md shadow-slate-300 flex justify-center`} >
+                <div className='font-sans pointer-events-none text-xl font-normal'>Submit</div>
+              </div>
+              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
+              flex items-center text-xs font-semibold text-blue-500 font-sans'>
+                Hint
+              </div>
+              {incompleteFeild ? !results && <div className='absolute w-full flex justify-center items-center'>
+                <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center pr-4 py-1 bg-amber-100 font-medium text-sm text-amber-600 border border-amber-400 rounded-full  shadow-md shadow-neutral-600 animate-opacityfade'>
                   <SVG title={'exclamation'} classes={'w-6 ml-2'} />
                   <div className='flex flex-col justify-center items-center'>
                     <div className='font-semibold text-center'>Don't have the answers?</div>
@@ -411,9 +443,12 @@ function App() {
                   </div>
                 </div>
 
-              </> : <>
+              </div> : <>
+
                 <div className='absolute pointer-events-none'></div>
+
               </>}
+
             </div>
 
           </>}

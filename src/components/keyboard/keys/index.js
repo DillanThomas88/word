@@ -8,7 +8,8 @@ function Key(props) {
             className="key w-[52px] h-[58px] mx-[3px] mt-1 rounded-md 
             bg-gradient-to-tl from-blue-700 to-blue-600 text-white font-bold text-xs 
             hover:bg-gradient-to-tl hover:from-blue-900 hover:to-blue-700
-            hover:bg-black flex justify-center items-center">{props.data}</div>)
+            hover:bg-black flex justify-center items-center">
+                NEXT</div>)
 
     } else if (props.data.length === 2) {
         return (<div id={props.data}
