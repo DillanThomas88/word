@@ -4,8 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-src\credential.json
-
+src/credential.json
+src/Settings/API.js
 # testing
 /coverage
 
