@@ -72,7 +72,7 @@ function App() {
   const fetchWordData = async (state, findWord) => {
 
 
-    const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${findWord}?key=${Credentials.currentKey}`
+    const link = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${findWord}?key=${process.env.API_KEY}`
 
     // const options = {
     //   method: 'GET',

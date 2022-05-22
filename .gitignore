@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 src/credential.json
 src/Settings/API.js
 # testing
