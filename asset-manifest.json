@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/word/static/css/main.8eef9a83.css",
-    "main.js": "/word/static/js/main.379c203a.js",
+    "main.js": "/word/static/js/main.4e44097d.js",
     "static/js/787.ca78f21f.chunk.js": "/word/static/js/787.ca78f21f.chunk.js",
     "index.html": "/word/index.html",
     "static/media/help.svg": "/word/static/media/help.518073ca59d059904eade329a850476f.svg",
@@ -11,11 +11,11 @@
     "static/media/exclamation.svg": "/word/static/media/exclamation.7bb53d17eafd47be7bc9e02871d89114.svg",
     "static/media/next.svg": "/word/static/media/next.934284745537374b89506d3b67278a3f.svg",
     "main.8eef9a83.css.map": "/word/static/css/main.8eef9a83.css.map",
-    "main.379c203a.js.map": "/word/static/js/main.379c203a.js.map",
+    "main.4e44097d.js.map": "/word/static/js/main.4e44097d.js.map",
     "787.ca78f21f.chunk.js.map": "/word/static/js/787.ca78f21f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8eef9a83.css",
-    "static/js/main.379c203a.js"
+    "static/js/main.4e44097d.js"
   ]
 }
