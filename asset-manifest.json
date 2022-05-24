@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/word/static/css/main.eb3ee368.css",
-    "main.js": "/word/static/js/main.a887cc43.js",
+    "main.css": "/word/static/css/main.67d82fd3.css",
+    "main.js": "/word/static/js/main.23fadab2.js",
     "static/js/787.ca78f21f.chunk.js": "/word/static/js/787.ca78f21f.chunk.js",
     "index.html": "/word/index.html",
     "static/media/help.svg": "/word/static/media/help.518073ca59d059904eade329a850476f.svg",
     "static/media/delete.svg": "/word/static/media/delete.d34b5cb04039724c8f1a183c316427c0.svg",
+    "static/media/close.svg": "/word/static/media/close.f3ebb88a4e3704c9497119053ea01b51.svg",
     "static/media/complete.svg": "/word/static/media/complete.f0a4ff93c9c267f94afe99b2f2faa40d.svg",
     "static/media/exclamation.svg": "/word/static/media/exclamation.7bb53d17eafd47be7bc9e02871d89114.svg",
     "static/media/next.svg": "/word/static/media/next.934284745537374b89506d3b67278a3f.svg",
-    "main.eb3ee368.css.map": "/word/static/css/main.eb3ee368.css.map",
-    "main.a887cc43.js.map": "/word/static/js/main.a887cc43.js.map",
+    "main.67d82fd3.css.map": "/word/static/css/main.67d82fd3.css.map",
+    "main.23fadab2.js.map": "/word/static/js/main.23fadab2.js.map",
     "787.ca78f21f.chunk.js.map": "/word/static/js/787.ca78f21f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eb3ee368.css",
-    "static/js/main.a887cc43.js"
+    "static/css/main.67d82fd3.css",
+    "static/js/main.23fadab2.js"
   ]
 }
