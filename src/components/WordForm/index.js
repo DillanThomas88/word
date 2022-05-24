@@ -175,12 +175,12 @@ function WordForm(props) {
         : completed ?
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-700'>
                 <div className='mr-1 animate-slidefade'></div>
-                <SVG title={'complete'} classes={'text-blue-500 h-6 w-6 animate-spin opacity-50'} />
+                <SVG title={'complete'} classes={'text-blue-500 h-6 w-6 animate-spin'} />
             </div>
             :
             <div className='absolute top-2 right-2 z-20 flex text-sm justify-center items-center text-slate-600'>
                 <div className='mr-1 animate-slidefade'></div>
-                <SVG title={'exclamation'} classes={'text-amber-500 h-6 w-6 animate-spin'} />
+                <SVG title={'exclamation'} classes={'text-slate-400 opacity-50 h-6 w-6 animate-spin'} />
             </div>
         }
         {selected ?
@@ -188,7 +188,10 @@ function WordForm(props) {
                 className="w-full relative text-2xl font-medium flex flex-col border-b border-slate-300  py-3 bg-white px-6 shadow-md shadow-slate-300 z-10">
                 {/* <div className="w-full text-center uppercase animate-appear">{props.word}</div> */}
 
-                <div className="italic font-thin text-sm w-full flex justify-start animate-appear font-serif text-blue-500">{props.type}</div>
+                <div className='flex justify-start'>
+                <div className="italic font-thin text-sm flex justify-start animate-appear font-serif text-blue-500 mr-4">{props.type}</div>
+                {props.hints[props.id - 1] && <div className='italic font-normal text-sm flex justify-start animate-appear font-sans text-green-500'>"{props.hint}"</div>}
+                </div>
                 <div className=" text-sm w-full flex justify-start pb-2 animate-appear font-normal">{!props.def ? `...Loading` : props.def}</div>
                 <div className="flex w-full justify-start items-center flex text-lg font-sans">
                     {/* <div className='border-b border-slate-700 w-1 mr-2 opacity-50'></div> */}

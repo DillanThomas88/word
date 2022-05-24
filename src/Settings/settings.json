@@ -3,9 +3,10 @@
     "day": 141,
 
     "keyLetterData": {
-        "version": 0.6,
-        "currentday": 129,
+        "version": 0.7,
+        "currentday": 141,
         "daily": [[],[],[],[]],
+        "hints": [false, false, false, false],
         "weekly": [],
         "results": false
     }

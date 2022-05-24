@@ -2,30 +2,34 @@ import template from './settings.json'
 
 const t = new Date();
 const today = Math.ceil((t - new Date(t.getFullYear(),0,1)) / 86400000);
+
 export function readyUpPlayer() {
 
-    // console.log(template.keyLetterData);
+    console.log(template.keyLetterData);
     
 
     let data = {}
 
+    
+
     if (!localStorage.getItem("keyLetterData")) {
 
-        data = template.keyLetterData
+         data = template.keyLetterData
 
 
     } else { data = JSON.parse(localStorage.getItem("keyLetterData")) }
 
+    if(data.version !== 0.7) {
+         localStorage.setItem('keyLetterData', JSON.stringify(template.keyLetterData))
+         data =  template.keyLetterData
+    } 
     if (data.currentday !== today) {
         data = template.keyLetterData
         data.currentday = today
-    }
-    
-    if(data.version !== 0.6) {
-        localStorage.setItem('keyLetterData', JSON.stringify(template.keyLetterData))
-    } else {
         localStorage.setItem('keyLetterData', JSON.stringify(data))
     }
+    
+
     return data
 
 }
@@ -48,7 +52,7 @@ export function getInterval() {
 // ! update local LETTERS
 
 export function updateLetters(data) {
-
+// console.log(data);
     localStorage.setItem('keyLetterData', JSON.stringify(data))
 
 }
@@ -56,8 +60,19 @@ export function updateLetters(data) {
 export function updatePlayerData(func, arr, index, location) {
     let x = { ...location }
     x.daily[index] = arr
+    // console.log(x);
 
     func(x)
+}
+
+export function updatePlayerHints(func, data, arr) {
+    let newdata = {...data}
+
+    newdata.hints = arr
+    console.log(data);
+
+    func(newdata)
+
 }
 
 
@@ -87,15 +102,15 @@ export function showResults(answer, guess){
         if(!answer.length) return
         
         
-        let t = setInterval(() => {
+        // let t = setInterval(() => {
 
-            answer.splice(randomNum,1)
-            guess.splice(randomNum,1)
-            showLetter()
-            ranInterval = Math.floor(Math.random()*1000)
+        //     answer.splice(randomNum,1)
+        //     guess.splice(randomNum,1)
+        //     showLetter()
+        //     ranInterval = Math.floor(Math.random()*1000)
             
-            clearInterval(t)
-        }, 300 + ranInterval);
+        //     clearInterval(t)
+        // }, 300 + ranInterval);
 
     }
 

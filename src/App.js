@@ -5,7 +5,10 @@ import WordForm from './components/WordForm';
 import axios from 'axios'
 import KeyBoard from './components/keyboard';
 import SVG from './svgs';
-import Settings, { getInterval, readyUpPlayer, updateLetters, checkCompletion } from './Settings/index'
+import Settings, { getInterval, readyUpPlayer, updateLetters, checkCompletion, updatePlayerHints } from './Settings/index'
+import Modal from './components/Modal';
+import ModalCard from './components/Modal/card';
+import { getCurrentTime } from './components/Modal/helpers';
 
 
 
@@ -27,6 +30,8 @@ function App() {
   const [revealed, setRevealed] = useState(false)
   const [isDaily, setIsdaily] = useState(true)
   const [letter, setLetter] = useState('')
+  const [infoModal, setInfoModal] = useState(false)
+  const [time, setTime] = useState(getCurrentTime())
 
   const [results, setResults] = useState(playerData.results)
   const [selectedNum, setSelectedNum] = useState('1')
@@ -43,6 +48,8 @@ function App() {
     wordList[interval.default + 2],
     wordList[interval.default + 3],
   ])
+
+  const [hints,setHints] = useState(playerData.hints)
 
   const [completion, setcompletion] = useState(false)
 
@@ -84,12 +91,13 @@ function App() {
     };
 
     axios.request(options).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       let loc = response.data.results[0]
       // if (!res.data[0]) loc = res.data.meanings[0]
       state({
         type: loc.partOfSpeech,
         def: loc.definition,
+        hint: loc.typeOf[0]
 
       })
     }).catch(function (error) {
@@ -137,8 +145,10 @@ function App() {
   }
 
   const handleSubmit = () => {
+    // console.log(playerData);
     setResults(true)
     updateLetters({ ...playerData, results: true })
+    // console.log(playerData);
     setcompletion(!completion)
     setSelectedNum(1)
   }
@@ -162,6 +172,22 @@ function App() {
   }
 
 
+
+  const info = (e) => {
+    // console.log(e.target);
+    if (e.target.classList.contains('backdrop')
+      || e.target.classList.contains('open')
+      || e.target.classList.contains('close')) setInfoModal(!infoModal)
+    // setInfoModal(!infoModal)
+  }
+
+  const activateHint = () => {
+    let newarr = [...hints]
+    newarr[selectedNum - 1] = true
+    setHints(newarr) 
+  }
+
+
   useEffect(() => {
     fetchWordData(setword1def, currentWords[0])
     fetchWordData(setword2def, currentWords[1])
@@ -171,7 +197,9 @@ function App() {
 
   useEffect(() => {
     document.title = 'Key Letter'
+    
     updateLetters(playerData)
+    // console.log(playerData);
 
 
     let four = checkCompletion(playerData.daily, currentWords, setcompletion)
@@ -184,15 +212,44 @@ function App() {
 
 
   }, [playerData])
+  useEffect(() => {
+    console.log(playerData);
+    let t = null
+
+    t = setInterval(() => {
+      setTime(getCurrentTime())
+    }, 1000);
+
+    return () => clearInterval(t)
+
+  }, [time])
+
+  useEffect(() => {
+    console.log(playerData);
+    updatePlayerHints(setPlayerData,playerData,hints)
+  },[hints])
 
   return (
     <div style={{ height: window.innerHeight, width: window.innerWidth }} className="relative font-sans">
+      {infoModal &&
+        <Modal handle={info}>
+          <ModalCard handle={info} title={'information'}>
+            <div className='text-center my-2'>
+              <p className=' text-xs font-medium opacity-50'>Time remaining for today's words</p>
+              <p>{time}</p>
+            </div>
+
+          <span className='text-xs font-medium lowercase flex justify-center opacity-50 mt-4'>keyletter-version {playerData.version}</span>
+          </ModalCard>
+        </Modal>}
+
       <header className='absolute top-0 w-full pt-4'>
 
         <div className=' text-center text-5xl sm:text-2xl uppercase'>
           <span className={`text-blue-500 font-normal`}>Key</span>
           <span className='text-slate-600 font-thin'>Letter</span>
         </div>
+          
 
       </header>
 
@@ -224,9 +281,11 @@ function App() {
                   className='card w-full'>
                   <WordForm
                     id={1}
+                    hints={hints}
                     word={currentWords[0]}
                     type={word1def.type}
                     def={word1def.def}
+                    hint={word1def.hint}
                     givenLetter={givenLetter[0]}
                     letter={letter}
                     setLetter={setLetter}
@@ -241,9 +300,11 @@ function App() {
                   className='card w-full'>
                   <WordForm
                     id={2}
+                    hints={hints}
                     word={currentWords[1]}
                     type={word2def.type}
                     def={word2def.def}
+                    hint={word2def.hint}
                     givenLetter={givenLetter[1]}
                     letter={letter}
                     setLetter={setLetter}
@@ -257,9 +318,11 @@ function App() {
                   className='card w-full'>
                   <WordForm
                     id={3}
+                    hints={hints}
                     word={currentWords[2]}
                     type={word3def.type}
                     def={word3def.def}
+                    hint={word3def.hint}
                     givenLetter={givenLetter[2]}
                     letter={letter}
                     setLetter={setLetter}
@@ -273,9 +336,11 @@ function App() {
                   className='card w-full mb-72'>
                   <WordForm
                     id={4}
+                    hints={hints}
                     word={currentWords[3]}
                     type={word4def.type}
                     def={word4def.def}
+                    hint={word4def.hint}
                     givenLetter={givenLetter[3]}
                     letter={letter}
                     setLetter={setLetter}
@@ -321,22 +386,23 @@ function App() {
 
         </div>
 
-        <div className={results ? ' bg-white py-2 fixed bottom-0 w-screen left-0 z-50' :
-          isDaily ? 'bg-white py-2 fixed bottom-0 w-screen left-0 z-50' : 'pointer-events-none bg-white py-2 fixed bottom-0 w-screen left-0 z-50'}
+        <div className={results ? ' bg-white py-2 fixed bottom-0 w-screen left-0 z-40' :
+          isDaily ? 'bg-white py-2 fixed bottom-0 w-screen left-0 z-40' : 'pointer-events-none bg-white py-2 fixed bottom-0 w-screen left-0 z-40'}
           style={{ boxShadow: ' 0px -2px 5px #d4d4d4' }}
         >
-          {!isDaily ? <div className='absolute z-50 w-full h-full top-0 left-0 opacity-25 bg-black'></div> : <></>}
+          {!isDaily ? <div className='absolute z-40 w-full h-full top-0 left-0 opacity-25 bg-black'></div> : <></>}
 
           {completion ? results ? <>
             <div className={` w-full flex justify-center items-center my-1`}>
-              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-500 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
+              <div onClick={(e) => info(e)}
+                className='open uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-500 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
                 i
               </div>
               <button onClick={() => handleSubmit()}
                 className={`${results && 'pointer-events-none'} uppercase w-full py-[4px] rounded-full text-slate-300 shadow-md shadow-slate-300 flex justify-center border border-slate-300`} >
                 <div className='font-normal pointer-events-none text-lg'>Completed</div> <div className='font-normal pointer-events-none'></div>
               </button>
-              <div className={`${results && 'pointer-events-none'} pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:opacity-50 
+              <div onClick={() => activateHint()}  className={`${results && 'pointer-events-none'} pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:opacity-50 
               flex items-center text-xs font-semibold text-slate-300 font-sans`}>
                 Hint
               </div>
@@ -345,14 +411,14 @@ function App() {
           </> : <>
 
             <div className={`${results && 'pointer-events-none'} w-full flex justify-center items-center my-1`}>
-              <div className='pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-slate-300 flex items-center font-bold font-serif lowercase text-xl'>
+              <div onClick={(e) => info(e)} className=' open pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-slate-300 flex items-center font-bold font-serif lowercase text-xl'>
                 i
               </div>
               <button onClick={() => handleSubmit()}
                 className='uppercase w-full py-[4px] rounded-full text-blue-500 shadow-md shadow-slate-300 flex justify-center border border-blue-500' >
                 <div className='font-normal pointer-events-none text-lg'>Submit</div> <div className='font-normal pointer-events-none'></div>
               </button>
-              <div className='pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
+              <div onClick={() => activateHint()} className='pointer-events-none uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-slate-300 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
               flex items-center text-xs font-semibold text-slate-300 font-sans'>
                 Hint
               </div>
@@ -361,19 +427,19 @@ function App() {
           </> : <>
 
             <div className={results ? 'pointer-events-none opacity-90 relative w-full flex justify-between items-center my-1' : ' relative w-full flex justify-between items-center my-1'}>
-              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
+              <div onClick={(e) => info(e)} className='open uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 text-blue-500 flex items-center font-bold font-serif lowercase text-xl'>
                 i
               </div>
               <div onClick={() => handleIncompleteFeild()}
                 className={` uppercase w-full py-1 rounded-full bg-white border border-slate-300 text-slate-300 shadow-md shadow-slate-300 flex justify-center`} >
                 <div className='font-sans pointer-events-none text-xl font-normal'>Submit</div>
               </div>
-              <div className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
+              <div onClick={() => activateHint()}  className=' uppercase px-4 mx-2 w-[52px] h-[36px] rounded-full border border-blue-400 shadow-md shadow-slate-300 flex justify-center hover:scale-110 
               flex items-center text-xs font-semibold text-blue-500 font-sans'>
                 Hint
               </div>
               {incompleteFeild ? !results && <div className='absolute w-full flex justify-center items-center'>
-                <div className='absolute z-50 pointer-events-none bottom-16 flex justify-center items-center pr-4 py-1 bg-amber-100 font-medium text-sm text-amber-600 border border-amber-400 rounded-full  shadow-md shadow-neutral-600 animate-opacityfade'>
+                <div className='absolute z-40 pointer-events-none bottom-16 flex justify-center items-center pr-4 py-1 bg-amber-100 font-medium text-sm text-amber-600 border border-amber-400 rounded-full  shadow-md shadow-neutral-600 animate-opacityfade'>
                   <SVG title={'exclamation'} classes={'w-6 ml-2'} />
                   <div className='flex flex-col justify-center items-center'>
                     <div className='font-semibold text-center'>Don't have the answers?</div>

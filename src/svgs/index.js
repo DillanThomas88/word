@@ -5,6 +5,7 @@ import {ReactComponent as Completed} from './complete.svg'
 import {ReactComponent as Delete} from './delete.svg'
 import {ReactComponent as Help} from './help.svg'
 import {ReactComponent as Next} from './next.svg'
+import {ReactComponent as Close} from './close.svg'
 
 
 function SVG({title, classes}) {
@@ -15,6 +16,7 @@ function SVG({title, classes}) {
         delete: <Delete className={classes} />,
         help: <Help className={classes} />,
         next: <Next className={classes} />,
+        close: <Close className={classes} />,
         
     }
     return(<>

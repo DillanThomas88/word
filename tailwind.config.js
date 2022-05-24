@@ -22,14 +22,18 @@ module.exports = {
         pop: 'pop .1s linear forwards',
         opacityfade: 'opacityfade 3s forwards',
         fadein: 'fade 1s forwards',
-        fadeout: 'fade 1s reverse forwards'
+        fadeout: 'fade 1s reverse forwards',
+        modal: 'modal .5s forwards',
       },
       keyframes: {
         appear: {
           from: { opacity: 0, transform: 'translateX(1rem)' },
           to: { opacity: 1, transform: 'translateX(0rem)' },
         },
-
+        modal: {
+          from: { opacity: 0, transform: 'translateY(1rem)' },
+          to: { opacity: 1, transform: 'translateY(0rem)' },
+        },
         spin: {
           from: {transform: 'scaleX(0)'},
           to: {transform: 'scaleX(1)'}
